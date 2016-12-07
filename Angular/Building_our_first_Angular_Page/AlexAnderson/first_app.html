@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <script src = 'bower_components/angular/angular.js'></script>
+    <script type='text/javascript'>
+      var myAppModule = angular.module('myApp', []);
+      // the .controller() method adds a controller to the module
+      myAppModule.controller('divController', function ($scope){
+        $scope.myName = 'Alex';
+        $scope.myFavoriteLanguage = 'Javascript';
+        $scope.myFavoriteJSLibrary = 'Angular';
+      });
+    </script>
+  </head>
+<body>
+  <div ng-controller='divController'>
+    <h2>My name is {{myName}}</h2>
+    <h2>My favorite language is {{myFavoriteLanguage}}</h2>
+    <h2>Because {{myFavoriteJSLibrary}} is awesome!</h2>
+  </div>
+</body>
+</html>
