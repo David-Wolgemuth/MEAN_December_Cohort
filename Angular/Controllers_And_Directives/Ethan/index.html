@@ -1,0 +1,34 @@
+<html ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>index</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js'></script>
+    <script type="text/javascript">
+      var app = angular.module('myApp', []);
+      app.controller('foodController',function($scope){
+        $scope.foods = [{name:"pizza"},
+                      {name:"BBQ"},
+                      {name:"Fries"},
+                      {name:"Salad"},
+                      {name:"Steak"},
+                      {name:"Burger"}];
+        $scope.addFood = function(){
+          console.log($scope.foodname.name)
+          $scope.foods.push($scope.foodname);
+          $scope.foodname={};
+        };
+      });
+
+    </script>
+  </head>
+  <body>
+    <div ng-controller='foodController'>
+      Favorite Food: <form><input type="text" ng-model='foodname.name'><input type="submit" ng-click='addFood()'></form>
+      currently typing: <span ng-if='foodname'>{{foodname.name}}</span><br>
+      <input type="text" ng-model='search.name'><br>
+      <ul>
+        <li ng-repeat="food in foods | filter:search">{{food.name}}</li>
+      </ul>
+    </div>
+  </body>
+</html>
