@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="">
+      <form class="" action="/message" method="post">
+        <p>Name: <input type="text" name="name" value=""></p>
+        <p>Message: <textarea name="message" rows="8" cols="80"></textarea></p>
+        <input type="submit" name="submit" value="Post message">
+      </form>
+    </div>
+    <div class="">
+      <% for(var msg in messages) { %>
+        <p>Name: <%= messages[msg].name %></p>
+        <p>Message: <%= messages[msg].message %></p>
+        <% for(var i = 0; i < messages[msg].comments.length; i ++) { %>
+          <p>Name: <%= messages[msg].comments[i].name %></p>
+          <p>Comment: <%= messages[msg].comments[i].comment %></p>
+        <% } %>
+        <form class="" action="/comment" method="post">
+          <p>Name: <input type="text" name="name_two" value=""></p>
+          <p>Comment: <textarea name="comment" rows="8" cols="80"></textarea></p>
+          <input type="submit" value="Post comment">
+          <input type="hidden" name="message_id" value="<%= messages[msg].id %>">
+        </form>
+      <% } %>
+    </div>
+    <script>
+      for (var i = 0; i < messages.length; i++) {
+        var message = messages[i];
+
+        for (var j = 0; j < message.comments.length; j++) {
+          var comment = message.comments[j];
+
+          comment.name
+        }
+      }
+    </script>
+  </body>
+</html>
