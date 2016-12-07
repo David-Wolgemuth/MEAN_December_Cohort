@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='app'>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src='node_modules/angular/angular.js'>
+    </script>
+    <script>
+        var app = angular.module('app', []);
+        app.controller('myController', function() {
+            this.foods = [];
+            this.addFood = function() {
+                this.foods.push(this.newFood);
+                this.newFood = '';
+            }
+            this.printController = function() {
+                console.log(this);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="myController as info" id="myController">
+        <form class="foodForm" ng-submit="info.addFood()">
+            <input type="text" ng-model="info.newFood">
+            <input type="submit" value="Add Food"></button>
+        </form>
+        <div id="filteredList" ng-show="info.newFood">
+            <h4>Food list, filtered by: <span ng-bind="info.newFood"></span></h4>
+            <ul>
+                <li ng-repeat="item in info.foods | filter: info.newFood">{{item}}</li>
+            </ul>
+        </div>
+        <div id="fullList" ng-hide="info.newFood">
+            <h4>Full food list</h4>
+            <ul>
+                <li ng-repeat="item in info.foods">{{item}}</li>
+            </ul>
+        </div>
+        <button ng-click="info.printController();">Show our this!</button>
+    </div>
+</body>
+
+</html>
