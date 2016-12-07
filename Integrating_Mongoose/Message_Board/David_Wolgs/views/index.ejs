@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Message Board</title>
+</head>
+<body>
+
+	<h1># of Messages: <%= messages.length %></h1>
+
+	<form action="/messages" method="POST">
+		<input type="text" name="content" placeholder="Type Your Message Here">
+		<input type="text" name="username" placeholder="Name">
+		<input type="submit" value="Post Message">
+	</form>
+
+	<ul>
+		<% for (var i = 0; i < messages.length; i++) { 
+			var message = messages[i]; %>
+			<li><%= message.username %>: <q><%= message.content %></q></li>
+			<li>
+				<ul>
+					<% for (var j = 0; j < message.comments.length; j++) {
+						var comment = message.comments[j]; %>
+						<li><%= comment.username %>: <q><%= comment.content %></q></li>
+					<% } %>
+					<li>
+						<form action="/comments" method="POST">
+							<input type="hidden" name="_message" value="<%= message._id %>">	
+							<input type="text" name="content" placeholder="Type Your Comment Here">
+							<input type="text" name="username" placeholder="Name">
+							<input type="submit" value="Post Comment">
+						</form>
+					</li>
+				</ul>
+			</li>
+		<% } %>
+	</ul>
+
+</body>
+</html>
