@@ -1,0 +1,27 @@
+<div ng-controller='CustomizeUsersController'>
+  <h2>Users Controller</h2>
+  <form>
+    <p>first Name: <input type="text" ng-model="add.first_name"></p>
+    <p>Last price: <input type="text" ng-model="add.last_name"></p>
+    <p>favorite language: <input type="text" ng-model="add.language"></p>
+    <p><input type="submit" ng-click="addUser(add)"></p>
+  </form>
+  <table>
+        <thead>
+          <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Fav language</td>
+            <td>actions</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='user in users'>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.language}}</td>
+            <td><button type="button" ng-click='removeUser($index)'>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
