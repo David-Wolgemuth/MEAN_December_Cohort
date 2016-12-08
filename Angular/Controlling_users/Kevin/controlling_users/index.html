@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src = 'node_modules/angular/angular.js'>
+    </script>
+    <script type="text/javascript">
+      var app = angular.module('app', []);
+      app.controller('userController', function($scope){
+        $scope.users = [];
+        $scope.addUser = function(){
+          $scope.users.push($scope.newUser);
+          $scope.newUser = {};
+        }
+        $scope.deleteUser = function(index){
+          console.log(index)
+          $scope.users.splice(index,1)
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div ng-controller = 'userController'>
+      <h3>Users Controller</h3>
+      <p>First Name: <input type="text" ng-model="newUser.first_name"></p>
+      <p>Last Name <input type="text" ng-model="newUser.last_name"></p>
+      <p>Favorite Language <input type="text" ng-model="newUser.lang"><input type="submit" name="" value="Create user" ng-click="addUser()"></p>
+      <table class="table">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Fav Language</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="user in users track by $index">
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name }}</td>
+          <td>{{ user.lang }}</td>
+          <td><button ng-click="deleteUser($index)">Delete</button></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
