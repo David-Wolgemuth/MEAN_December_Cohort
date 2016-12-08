@@ -4,22 +4,50 @@
     <script src = 'bower_components/angular/angular.js'></script>
     <script type='text/javascript'>
       var myAppModule = angular.module('myApp', []);
-      // the .controller() method adds a controller to the module
-      myAppModule.controller('productController', function ($scope){
-          $scope.products = [{name:'Keyboard', price: 149.99},
-                            {name:'Mouse', price: 59.99},
-                            {name:'Basketball', price: 21.99}];
-          $scope.addProduct = function (){
-            // add to the array
-            $scope.products.push($scope.newProduct);
-            // clear the form values
-            $scope.newProduct = {};
-            console.log($scope);
-          }
-          $scope.deleteProduct = function(item){
-            $scope.products.splice(item,1);
-          }
+      //create a factory (attached to this module)
+      myAppModule.factory('productFactory', function(){
+        //the factory is nothing more than a function that returns an object
+        var products = [{name:'Keyboard', price: 149.99},
+                        {name:'Mouse', price: 59.99},
+                        {name:'Basketball', price: 21.99}];
+        var factory = {};
+        //Add a getProducts key to the factory object with a value of a function.
+        factory.getProducts = function (callback){
+          //pass the students to a callback to be used by whoever calls the method
+          callback(products);
+        }
+        factory.addProducts = function (newProduct, callback){
+          // console.log("Mic check 12..12");
+          products.push(newProduct);
+          callback(products);
+        }
+        factory.deleteProducts = function (item, callback){
+          console.log("Delete me!")
+          products.splice(item,1);
+          callback(products);
+        }
+        //Most important step: return the object so it can be used by the rest of our angular code
+        return factory;
       });
+      //Create a controller (attached to this module), and inject the productFactory in it.
+      myAppModule.controller('productsController',['$scope', 'productFactory',function ($scope, productFactory){
+        productFactory.getProducts(function (data){
+          $scope.products = data;
+          })
+          //adding values to product factory
+        $scope.addProducts = function(){
+          productFactory.addProducts($scope.newProduct, function(products){
+            $scope.newProduct = {};
+            $scope.products = products;
+          });
+        }
+        $scope.deleteProducts = function(index){
+          productFactory.deleteProducts(index, function(products){
+            $scope.products = products;
+          })
+        }
+      }])
+
     </script>
     <style>
       .addProduct{
@@ -53,13 +81,13 @@
     </style>
   </head>
   <body>
-    <div ng-controller='productController'>
+    <div ng-controller='productsController'>
       <div class="addProduct">
         <h1>Product Controller</h1>
       <form>
         Product Name: <input type='text' ng-model='newProduct.name'> <br>
         Product Price: <input type='number' ng-model='newProduct.price'> <br>
-        <input type='submit' value='Create Product' ng-click='addProduct()'>
+        <input type='submit' value='Create Product' ng-click='addProducts()'>
       </form>
       </div>
       <hr>
@@ -73,7 +101,7 @@
         <tr ng-repeat="product in products | orderBy: price | filter: productModel  track by $index">
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
-          <td><button type="button" name="button" ng-click='deleteProduct($index)'>Delete Product</button></td>
+          <td><button type="button" name="button" ng-click='deleteProducts($index)'>Delete Product</button></td>
         </tr>
         </div>
       </table>
