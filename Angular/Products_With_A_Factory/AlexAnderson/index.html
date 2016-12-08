@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <script src = 'bower_components/angular/angular.js'></script>
+    <script type='text/javascript'>
+      var myAppModule = angular.module('myApp', []);
+      // the .controller() method adds a controller to the module
+      myAppModule.controller('productController', function ($scope){
+          $scope.products = [{name:'Keyboard', price: 149.99},
+                            {name:'Mouse', price: 59.99},
+                            {name:'Basketball', price: 21.99}];
+          $scope.addProduct = function (){
+            // add to the array
+            $scope.products.push($scope.newProduct);
+            // clear the form values
+            $scope.newProduct = {};
+            console.log($scope);
+          }
+          $scope.deleteProduct = function(item){
+            $scope.products.splice(item,1);
+          }
+      });
+    </script>
+    <style>
+      .addProduct{
+        display: inline-block;
+        }
+        #filter{
+          margin-left: 200px;
+          vertical-align: top;
+          display: inline-block;
+        }
+        form{
+          display: inline-block;
+        }
+        form,input{
+          margin-left: 25px;
+        }
+        table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+      td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      }
+
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller='productController'>
+      <div class="addProduct">
+        <h1>Product Controller</h1>
+      <form>
+        Product Name: <input type='text' ng-model='newProduct.name'> <br>
+        Product Price: <input type='number' ng-model='newProduct.price'> <br>
+        <input type='submit' value='Create Product' ng-click='addProduct()'>
+      </form>
+      </div>
+      <hr>
+      <input type="text" id="filter" placeholder="filter..." ng-model="productModel"> <br>
+      <table ng-die>
+        <tr>
+          <th>Product Name</th>
+          <th>Product Price</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="product in products | orderBy: price | filter: productModel  track by $index">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td><button type="button" name="button" ng-click='deleteProduct($index)'>Delete Product</button></td>
+        </tr>
+        </div>
+      </table>
+    </div>
+  </body>
+</html>
