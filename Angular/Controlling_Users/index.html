@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title></title>
+  <script src='../bower_components/angular/angular.js'></script>
+  <script type='text/javascript'>
+    var myApp = angular.module('myApp', []);
+    myApp.controller('friendsController', ['$scope', function ($scope){
+        $scope.friends = []
+    }])
+  </script>
+</head>
+
+<body ng-app="myApp">
+
+  <form class="" action="" method="">
+    Name :<input type="text" name="" value="ng?">
+    Last Name :<input type="text" name="" value="ng?">
+    Language :<input type="text" name="" value="ng?">
+    <input type="submit" name="" value="Add user">
+  </form><hr>
+
+
+  <table ng-controller="myCtrl" border="1">
+    <tr>
+      <th> First Name: </th>
+      <th> Last Name: </th>
+      <th> Favorite Language: </th>
+      <th> Remove user </th>
+    </tr>
+      <tr ng-repeat="x in records">
+          <td>{{x.Name}}</td>
+          <td>{{x.Name2}}</td>
+          <td>{{x.Language}}</td>
+      </tr>
+  </table>
+
+
+</body>
+</html>
+

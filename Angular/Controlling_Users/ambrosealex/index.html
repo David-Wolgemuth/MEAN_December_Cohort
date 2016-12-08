@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Users Controller</title>
+        <link rel="stylesheet" type = "text/css" href="style.css">
+        <script src='bower_components/angular/angular.js'></script>
+        <script type='text/javascript'>
+          var myApp = angular.module('myApp', []);
+          myApp.controller('usersController', ['$scope', function ($scope){
+              $scope.users = [];
+              var index = 1;
+              $scope.addUser = function(){
+                  $scope.users.push({id: index, first_name: $scope.first, last_name: $scope.last, fav: $scope.lang});
+                  index++;
+                  $scope.first = "";
+                  $scope.last = "";
+                  $scope.lang = "";
+              }
+              $scope.remove = function(id){
+                  console.log(id)
+                  for (var i = 0; i < $scope.users.length; i++) {
+                      if($scope.users[i].id == id){
+                          $scope.users.splice(i,1);
+                      }
+                  }
+              }
+          }]);
+        </script>
+    </head>
+    <body>
+        <div id = "wrapper" ng-controller= "usersController">
+            <h1 id = "header">Users Controller</h1>
+            First Name <input type="text" ng-model = "first" value=""> <br>
+            Last Name <input type="text" ng-model = "last" value=""> <br>
+            Favorite Language <input type="text" ng-model = "lang" value=""> <br>
+            <button type="button" name="create" ng-click = "addUser()">Create User</button> <br>
+            <table>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Fav Language</th>
+                    <th>Actions</th>
+                </tr>
+                <tr ng-repeat = "user in users track by $index">
+                    <td>{{ user.first_name }}{{ user.id }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.fav }}</td>
+                    <td><button ng-click = "remove( user.id )">Delete</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

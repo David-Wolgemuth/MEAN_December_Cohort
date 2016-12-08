@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+  <head>
+    <meta charset="utf-8">
+    <title>user control</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js'></script>
+    <script type="text/javascript">
+      var app = angular.module('myapp', []);
+      app.controller('pageController',function($scope){
+        $scope.users=[{first_name:"Ethan",last_name:"Tang", language:"javascript"},
+                      {first_name:"Yukihiro",last_name:"Matsumoto", language:"javascript"},
+                      {first_name:"Ryan",last_name:"Dahl", language:"python"},
+                      {first_name:"Mike",last_name:"Choi", language:"ruby"},
+                      {first_name:"Brendon",last_name:"Eich", language:"c++"},];
+        $scope.regUser= function(){
+          $scope.users.push($scope.reg);
+          $scope.reg={};
+        };
+        $scope.removeUser = function(index){
+          $scope.users.splice(index,1)
+        }
+      })
+    </script>
+  </head>
+  <body>
+    <div ng-controller='pageController'>
+      <form>
+        <p>First name: <input type="text" ng-model='reg.first_name'></p>
+        <p>Last name: <input type="text" ng-model='reg.last_name'></p>
+        <p>Favorite Language: <input type="text" ng-model='reg.language'><input type="submit" ng-click='regUser()' value="Create User"></p>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Fav Language</td>
+            <td>actions</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='user in users'>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.language}}</td>
+            <td><button type="button" ng-click='removeUser($index)'>Delete User</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
