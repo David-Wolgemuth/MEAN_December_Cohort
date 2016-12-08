@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='app'>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Producks. Get it? PRO ducks!</title>
+    <script src='node_modules/angular/angular.js'>
+    </script>
+    <script>
+        var app = angular.module('app', []);
+        app.factory('productFactory', function(){
+            var factory = {};
+            products = [{name: 'test1', price: 44, quantity: 50}, {name: 'test2', price: 23, quantity: 50}, {name: 'test3', price: 19.22, quantity: 50}];
+            // products = [];
+            factory.main = function(callback) {
+                callback(products);
+            }
+            factory.addproduct = function(product, callback) {
+                product.quantity = 50;
+                products.push(product);
+                callback(products);
+            }
+            factory.purchaseproduct = function(id, callback) {
+                if (products[id].quantity > 0) {
+                    products[id].quantity -= 1;
+                }
+                callback(products);
+            }
+            factory.deleteproduct = function(id, callback) {
+                products.splice(id,1);
+                callback(products);
+            }
+            return factory;
+        });
+        app.controller('productController', ['$scope', 'productFactory', function($scope, productFactory) {
+            function setproducts(data) {
+                $scope.products = data;
+                $scope.product = {};
+            };
+            $scope.products = [];
+            $scope.main = function() {
+                productFactory.main(setproducts);
+            }
+            $scope.main();
+            $scope.addproduct = function() {
+                productFactory.addproduct($scope.product, setproducts);
+            }
+            $scope.deleteproduct = function(id) {
+                productFactory.deleteproduct(id, setproducts);
+            }
+        }]);
+        app.controller('orderController', ['$scope', 'productFactory', function($scope, productFactory) {
+            $scope.products = [];
+            function setproducts(data) {
+                $scope.products = data;
+            };
+            $scope.main = function() {
+                productFactory.main(setproducts)
+            }
+            $scope.main();
+            $scope.purchaseproduct = function(id) {
+                productFactory.purchaseproduct(id, setproducts);
+            }
+        }]);
+    </script>
+</head>
+<body>
+    <div id="productview" ng-controller="productController">
+        <form class="productform" ng-submit="addproduct()">
+            <label for="product['name']">Name: <input type="text" ng-model="product['name']"></label>
+            <label for="product['price']">Price: <input type="number" step="0.01" ng-model="product['price']"></label>
+            <input type="submit" name="submit" value="Create Product">
+        </form>
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </thead>
+            <tr ng-repeat="item in products">
+                <td ng-bind="item['name']"></td>
+                <td ng-bind="item['price'] | currency:'USD $'"></td>
+                <td><button type="button" ng-click="deleteproduct($index)">Delete</button></td>
+            </tr>
+        </table>
+    </div>
+    <div id="orderview" ng-controller="orderController">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity Available</th>
+                <th>Actions</th>
+            </thead>
+            <tr ng-repeat="item in products">
+                <td ng-bind="item['name']"></td>
+                <td ng-bind="item['price'] | currency:'USD $'"></td>
+                <td ng-bind="item['quantity']"></td>
+                <td><button type="button" ng-click="purchaseproduct($index)">Purchase</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+<style media="screen">
+    th, td {
+        border: 1px solid black;
+    }
+</style>
+</html>

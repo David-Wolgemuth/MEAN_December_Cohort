@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <title>I'm quite partial to this view.</title>
+        <script src="angular/angular.js"></script>
+        <script src="angular-route/angular-route.js"></script>
+
+        <script>
+            var app = angular.module('app', ['ngRoute']);
+
+            // Angular routes to show partial views
+            app.config(function ($routeProvider) {
+                $routeProvider
+                    .when('/', {
+                        templateUrl: 'partials/customizeUsers.html'
+                    })
+                    .when('/users', {
+                        templateUrl: 'partials/customizeUsers.html'
+                    })
+                    .when('/list', {
+                        templateUrl: 'partials/listUsers.html'
+                    })
+                    .otherwise({
+                        redirectTo: '/users'
+                    });
+            });
+
+            // Angular factory for users
+            app.factory('userFactory',['$http', function($http) {
+                var factory = {};
+                users = [{first_name: 'Brad', last_name: 'Loesch', language: 'Python'}];
+                factory.main = function(callback) {
+                    callback(users);
+                }
+                factory.addUser = function(user, callback) {
+                    users.push(user);
+                    callback(users);
+                }
+                factory.deleteUser = function(id, callback) {
+                    users.splice(id, 1);
+                    callback(users);
+                }
+                return factory;
+            }]);
+
+            // Angular controller for customize partial view
+            app.controller('CustomizeController', ['$scope', 'userFactory', function($scope, userFactory) {
+                function getUsers(data) {
+                    $scope.users = data;
+                    $scope.user = {};
+                }
+                $scope.main = function() {
+                    userFactory.main(getUsers);
+                }
+                $scope.main();
+                $scope.addUser = function() {
+                    userFactory.addUser($scope.user, getUsers);
+                }
+                $scope.deleteUser = function(id) {
+                    userFactory.deleteUser(id, getUsers);
+                }
+            }]);
+
+            // Angular controller for listing users partial view
+            app.controller('ListController', ['$scope', 'userFactory', function($scope, userFactory) {
+                function getUsers(data) {
+                    $scope.users = data;
+                    $scope.user = {};
+                }
+                $scope.main = function() {
+                    userFactory.main(getUsers);
+                }
+                $scope.main();
+            }]);
+        </script>
+    </head>
+    <body>
+        <h2><a href="#!/users">Customize Users</a> <a href="#!/list">User List</a></h2>
+        <div ng-view></div>
+    </body>
+</html>

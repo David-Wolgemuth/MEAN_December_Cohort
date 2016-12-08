@@ -1,0 +1,14 @@
+<div ng-controller="ListController">
+    <table>
+        <thead>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Fav Language</th>
+        </thead>
+        <tr ng-repeat="user in users">
+            <td ng-bind="user['first_name']"></td>
+            <td ng-bind="user['last_name']"></td>
+            <td ng-bind="user['language']"></td>
+        </tr>
+    </table>
+</div>
