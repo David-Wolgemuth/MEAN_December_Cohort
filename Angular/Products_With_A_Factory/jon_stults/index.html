@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app = 'app'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src = 'bower_components/angular/angular.js'></script>
+    <script type="text/javascript">
+      var app = angular.module('app', []);
+
+      app.factory('productFactory', function(){
+        var products = [];
+        var factory = {};
+        factory.getProducts = function(product, callback){
+          products.push(product);
+          console.log(product);
+          callback(products);
+        }
+        factory.deleteProducts = function(remove, getrid){
+          products.splice(remove, 1);
+          getrid(products);
+        }
+        return factory;
+      });
+      app.controller('productController', ['$scope', 'productFactory', function($scope, productFactory){
+        $scope.addProduct = function (){
+          console.log('hello');
+          productFactory.getProducts($scope.newProduct, function(data){
+            $scope.newProduct = {};
+            $scope.products = data;
+          })
+        }
+        $scope.deleteProduct = function (index){
+          productFactory.deleteProducts(index, function(shit){
+            $scope.products = shit;
+          })
+        }
+      }])
+    </script>
+  </head>
+  <body>
+    <div ng-controller = 'productController'>
+      <form>
+        <p>Product Name: <input type="text" ng-model = 'newProduct.name'></p>
+        <p>Product Price: <input type="number" ng-model = 'newProduct.price'></p>
+        <input type="submit" value="Add Product" ng-click = 'addProduct()'>
+      </form>
+      <div class="">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+          <tr ng-repeat = 'product in products track by $index'>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td><input type="submit" ng-click = 'deleteProduct($index)' value="Delete Product"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
