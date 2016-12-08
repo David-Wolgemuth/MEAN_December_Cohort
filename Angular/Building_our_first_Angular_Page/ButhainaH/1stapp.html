@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="1stapp">
+  <head>
+    <meta charset="utf-8">
+    <script src="bower_components/angular/angular.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var app = angular.module('1stapp', []);
+      app.controller('divController', ['$scope', function($scope) {
+        $scope.myName = 'Beth';
+        $scope.myFavoriteLanguage = 'JavaScript';
+        $scope.myFavoriteJSLibrary = 'Angular';
+      }]);
+    </script>
+    <title>1stapp</title>
+  </head>
+  <body>
+    <div ng-controller="divController">
+      <h3> Hi, my name is: {{myName}}, my favorite language is: {{myFavoriteLanguage}}, my favorite JS framework is: {{myFavoriteJSLibrary}}</h3>
+    </div>
+  </body>
+</html>

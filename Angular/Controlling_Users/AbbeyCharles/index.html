@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src='bower_components/angular/angular.js'></script>
+  <script type="text/javascript">
+    var app = angular.module('app', []);
+    app.controller('userController', ['$scope', function ($scope){
+      $scope.users = [];
+      $scope.addUser = function(){
+        console.log('Hi', $scope)
+        $scope.users.push($scope.newUser);
+        $scope.newUser = {};
+      }
+      $scope.deleteUser = function(user) {
+        var del = $scope.users.indexOf(user);
+        $scope.users.splice(del,1);
+      }
+      $scope.printController = function(){
+        console.log($scope);
+      }
+    }]);
+  </script>
+</head>
+<body ng-app="app">
+  <div ng-controller="userController">
+    <h2>User Controller</h2>
+    First Name: <input type="text" ng-model="newUser.firstName">
+    Last Name: <input type="text" ng-model="newUser.lastName">
+    Favorite Language: <input type="text" ng-model="newUser.language">
+    <input type="submit" value="Add New User" ng-click="addUser()">
+
+    <br>
+    <div>
+      <table border="1">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Favorite Language</th>
+        <th>Delete User</th>
+        <tbody>
+          <tr ng-repeat="user in users">
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.language}}</td>
+            <td><button type="button" ng-click="deleteUser(user)">Delete User</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>
