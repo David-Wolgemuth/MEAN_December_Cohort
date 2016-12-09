@@ -1,0 +1,15 @@
+{
+  "name": "mean_december_cohort",
+  "version": "1.0.0",
+  "description": "Repository of all students assignments",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/David-Wolgemuth/MEAN_December_Cohort.git"
+  },
+  "author": "David Wolgemuth <davidjwolgemuth@wgmail.com> (https://david-wolgemuth.github.io)",
+  "license": "ISC",
+  "homepage": "https://github.com/David-Wolgemuth/MEAN_December_Cohort#readme",
+  "dependencies": {
+    "simple-git": "^1.64.0"
+  }
+}
