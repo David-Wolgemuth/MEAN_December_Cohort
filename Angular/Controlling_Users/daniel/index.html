@@ -1,38 +1,61 @@
-<html>
-<head>
-  <title></title>
-  <script src='../bower_components/angular/angular.js'></script>
+
+<!DOCTYPE html>
+<html ng-app = "myApp">
+  <head>
+  <title> Users </title>
+  <script src="../bower_components/angular/angular.js"></script>
   <script type='text/javascript'>
     var myApp = angular.module('myApp', []);
-    myApp.controller('friendsController', ['$scope', function ($scope){
-        $scope.friends = []
+    myApp.controller('usersController', ['$scope', function ($scope){
+        $scope.users = [];
+        var index = 1;
+        $scope.add = function(){
+          $scope.newUser.id = index;
+          index ++;
+          $scope.users.push($scope.newUser);
+          $scope.newUser = {};
+          }
+        $scope.delete = function(id){
+          for (var i = 0; i < $scope.users.length; i++) {
+            if($scope.users[i].id == id){
+              $scope.users.splice(i,1);
+              console.log($scope.users[i].id);
+              console.log(id);
+            } //Why does this work?
+          }
+        }
     }])
   </script>
 </head>
 
-<body ng-app="myApp">
+<body>
+  <div ng-controller="usersController">
 
-  <form class="" action="" method="">
-    Name :<input type="text" name="" value="ng?">
-    Last Name :<input type="text" name="" value="ng?">
-    Language :<input type="text" name="" value="ng?">
-    <input type="submit" name="" value="Add user">
+  <form>
+    Name :<input type="text" ng-model="newUser.firstName">
+    Last Name :<input type="text" ng-model="newUser.lastName">
+    Language :<input type="text" ng-model="newUser.language">
+     <input type="submit" value="Create User" ng-click='add()'>
   </form><hr>
 
 
-  <table ng-controller="myCtrl" border="1">
+  <table border="1px solid black">
     <tr>
+      <th> Id: </th>
       <th> First Name: </th>
       <th> Last Name: </th>
       <th> Favorite Language: </th>
-      <th> Remove user </th>
+      <th> Remove user? </th>
     </tr>
-      <tr ng-repeat="x in records">
-          <td>{{x.Name}}</td>
-          <td>{{x.Name2}}</td>
-          <td>{{x.Language}}</td>
+      <tr ng-repeat="user in users">
+          <td >{{ user.id }}</td>
+          <td >{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.language }}</td>
+          <td><button type="button" ng-click="delete(user.id)">Delete User</button></td>
       </tr>
   </table>
+</div>
 
 
 </body>
