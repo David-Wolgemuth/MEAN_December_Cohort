@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app='myapp'>
+  <head>
+    <meta charset="utf-8">
+    <title>partial and customer users</title>
+    <script src='angular/angular.js'></script>
+    <script src='angular-route/angular-route.js'></script>
+    <script type="text/javascript">
+      var app = angular.module('myapp',['ngRoute']);
+      app.config(function($routeProvider){
+        $routeProvider
+          .when('/',{
+            templateUrl:'partials/customizeUsers.html'
+          })
+          .when('/partial2',{
+            templateUrl:'partials/userList.html'
+          })
+          .otherwise({
+            redirectTo:'/'
+          });
+      });
+      app.factory('userFactory',function(){
+        var users = [{first_name:"Ethan",last_name:"Tang", language:"javascript"},
+                      {first_name:"Yukihiro",last_name:"Matsumoto", language:"javascript"},
+                      {first_name:"Ryan",last_name:"Dahl", language:"python"},
+                      {first_name:"Mike",last_name:"Choi", language:"ruby"},
+                      {first_name:"Brendon",last_name:"Eich", language:"c++"},];
+        var factory = {};
+        factory.getUsers = function(banana){
+          banana(users);
+        };
+        factory.addUser = function(user){
+          users.push(user);
+        };
+        factory.removeUser = function(index){
+          users.splice(index,1);
+        }
+        return factory;
+      })
+      // CONTROLLER CUSTOMIZE USERS
+      app.controller('CustomizeUsersController',['$scope','userFactory',function($scope, userFactory){
+        $scope.users = [];
+        userFactory.getUsers(function(users){
+          $scope.users = users;
+        });
+        $scope.addUser = function(add){
+          userFactory.addUser(add);
+          $scope.add = {};
+        };
+        $scope.removeUser = function(index){
+          userFactory.removeUser(index);
+        }
+
+      }]);
+      // CONTROLLER USERSLIST
+      app.controller('UserListsController',['$scope','userFactory',function($scope, userFactory){
+        $scope.users = [];
+        userFactory.getUsers(function(users){
+          $scope.users = users;
+        })
+      }])
+
+    </script>
+  </head>
+  <body>
+    <div ng-app='myapp'>
+      <a href="#!/">Customize Users</a> | <a href="#!/partial2">User List</a>
+      <div ng-view="">
+      </div>
+    </div>
+  </body>
+
+</html>
