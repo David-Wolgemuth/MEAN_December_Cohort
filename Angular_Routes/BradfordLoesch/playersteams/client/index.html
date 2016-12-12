@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <title>I'm quite partial to this view.</title>
+        <script src="angular/angular.js"></script>
+        <script src="angular-route/angular-route.js"></script>
+
+        <script>
+            var app = angular.module('app', ['ngRoute']);
+
+            // Angular routes to show partial views
+            app.config(function ($routeProvider) {
+                $routeProvider
+                    .when('/', {
+                        templateUrl: 'partials/players.html'
+                    })
+                    .when('/teams', {
+                        templateUrl: 'partials/teams.html'
+                    })
+                    .when('/associations', {
+                        templateUrl: 'partials/associations.html'
+                    })
+                    .otherwise({
+                        redirectTo: '/'
+                    });
+            });
+
+            // Angular factory for users
+            app.factory('playerFactory',['$http', function($http) {
+                var factory = {};
+                players = [{name: 'Brad Loesch'}];
+                factory.main = function(callback) {
+                    callback(players);
+                }
+                factory.addPlayer = function(player, callback) {
+                    players.push(player);
+                    callback(players);
+                }
+                factory.deletePlayer = function(id, callback) {
+                    players.splice(id, 1);
+                    callback(players);
+                }
+                return factory;
+            }]);
+
+            // Angular factory for users
+            app.factory('teamFactory',['$http', function($http) {
+                var factory = {};
+                teams = [{name: 'Awesomenauts'}];
+                factory.main = function(callback) {
+                    callback(teams);
+                }
+                factory.addTeam = function(team, callback) {
+                    teams.push(team);
+                    callback(teams);
+                }
+                factory.deleteTeam = function(id, callback) {
+                    teams.splice(id, 1);
+                    callback(teams);
+                }
+                return factory;
+            }]);
+
+            // Angular controller for customize partial view
+            app.controller('PlayersController', ['$scope', 'playerFactory', function($scope, playerFactory) {
+                function getPlayers(data) {
+                    $scope.players = data;
+                    $scope.player = {};
+                }
+                $scope.main = function() {
+                    playerFactory.main(getPlayers);
+                }
+                $scope.main();
+                $scope.addPlayer = function() {
+                    playerFactory.addUser($scope.player, getUsers);
+                }
+                $scope.deletePlayer = function(id) {
+                    playerFactory.deleteUser(id, getUsers);
+                }
+            }]);
+
+            // Angular controller for listing users partial view
+            app.controller('ListController', ['$scope', 'userFactory', function($scope, userFactory) {
+                function getUsers(data) {
+                    $scope.users = data;
+                    $scope.user = {};
+                }
+                $scope.main = function() {
+                    userFactory.main(getUsers);
+                }
+                $scope.main();
+            }]);
+        </script>
+    </head>
+    <body>
+        <h2><a href="#!/users">Customize Users</a> <a href="#!/list">User List</a></h2>
+        <div ng-view></div>
+    </body>
+</html>
