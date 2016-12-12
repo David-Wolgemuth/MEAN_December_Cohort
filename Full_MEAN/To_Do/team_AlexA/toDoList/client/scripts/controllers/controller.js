@@ -1,7 +1,8 @@
-myApp.controller('itemController', ['$scope','itemController', function ($scope, productFactory){
+myApp.controller('itemController', ['$scope','itemsFactory', function ($scope, itemsFactory){
     $scope.items = [];
+    console.log("Something happened");
     $scope.callAddItem = function () {
-        productFactory.addItem($scope.product, function(data){
+        itemsFactory.addItem($scope.newItem, function(data){
             $scope.newItem = {};
             $scope.items = data;
         });

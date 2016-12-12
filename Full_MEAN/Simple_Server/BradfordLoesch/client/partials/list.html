@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Show</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <tr ng-repeat="user in users">
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td><a href="#!/show/{{ $index }}"></a></td>
+            <td><a href="#!/edit/{{ $index }}"></a></td>
+            <td><a href="#!/delete/{{ $index }}"></a></td>
+        </tr>
+    </thead>
+</table>

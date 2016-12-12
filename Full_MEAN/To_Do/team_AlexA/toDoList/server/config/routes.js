@@ -5,4 +5,5 @@ var items = require('../controllers/items.js');
 
 module.exports = function(app) {
   app.get('/', items.index);
+   app.post('/addItem')
 }
