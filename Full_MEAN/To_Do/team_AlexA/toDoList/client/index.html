@@ -5,6 +5,7 @@
         <title>To Do List</title>
         <link rel="stylesheet" type = "text/css" href="/stylesheets/style.css">
         <script src='bower_components/angular/angular.js'></script>
+        <script src='bower_components/angular/angular-route.js'></script>
         <script src='scripts/app.js'></script>
         <script src='scripts/controllers/controller.js'></script>
         <script src='scripts/factories/itemsFactory.js'></script>
@@ -15,7 +16,7 @@
             <form class="" action="index.html" method="post">
                 Item: <input type="text" name="item" ng-model = "newItem.title" value=""> <br>
                 Description <input type="text" name="description" ng-model = "newItem.description" value=""><br>
-                <button type="submit" name="subBtn" ng-click = "addItem()" value="Add Item"><button>
+                <button type="submit" name="subBtn" ng-click = "addItem()">Add Item<button>
             </form>
             <ul ng-repeat = "item in items track by $index">
 
