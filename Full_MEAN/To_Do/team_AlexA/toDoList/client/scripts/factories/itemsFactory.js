@@ -1,4 +1,4 @@
-myApp.factory('itemFactory', function($http){
+myApp.factory('itemsFactory', function($http){
     var factory = {};
     var items = [];
     var index = 1;
