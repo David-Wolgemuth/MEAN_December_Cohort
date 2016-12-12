@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="gitApp">
+<head>
+	<title>GitHub Stats</title>
+	<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+	<script type="text/javascript">
+var module = angular.module("gitApp", []);
+
+module.controller("commitsController", ["$scope", "$http", function ($scope, $http) {
+	$scope.commits = [ /* response from github */ ];
+
+	$http
+	.get("https://api.github.com/repos/David-Wolgemuth/MEAN_December_Cohort/commits")
+	.then(function (response) {
+		$scope.commits = response.data;
+	});
+
+	$http
+	.get("http://localhost:8000/json")
+	.then(function (response) {
+		$scope.messages = response.data.messages;
+	});
+}]);
+	</script>
+</head>
+<body>
+
+	<div ng-controller="commitsController">
+		<table>
+			<tr>
+				<th>Commiter</th>
+				<th>Message</th>
+				<th>Date</th>
+			</tr>
+			<tr ng-repeat="commit in commits">
+				<td ng-bind="commit.commit.author.name"></td>
+				<td ng-bind="commit.commit.message"></td>
+				<td ng-bind="commit.commit.author.date"></td>
+			</tr>
+		</table>
+
+		<ul>
+			<li ng-repeat="message in messages">
+				{{ message.name }} -- {{ message.message }}
+				<ul>
+					<li ng-repeat="comment in message.comment">
+						{{ comment.name }} -- {{ comment.comment }}
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+
+</body>
+</html>

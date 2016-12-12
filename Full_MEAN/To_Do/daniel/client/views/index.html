@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+  <head>
+    <meta charset="utf-8">
+    <title> Index </title>
+    <script src="../bower_components/angular/angular.js"></script>
+	  <script src="../bower_components/angular-route/angular-route.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="text/javascript">
+      var module = angular.module('myapp', []);
+      module.controller('mycontroller', ["$scope", "$http", function($scope, $http){
+        console.log($scope);
+        console.log($http);
+      }])
+
+    </script>
+
+  </head>
+  <body>
+
+    <div id='wrapper' ng-controller='mycontroller'>
+
+      <h2>Welcome to the ToDo App!</h2> <hr>
+
+      <h4> Add an Item to your To-Do List </h4>
+      <form class="" action="/additem" method="post">
+        To Do: <input type="text" name="todo" value="">
+        Date: <input type="date" name="duedate" value="">
+        <input type="submit" name="" value="Add To List">
+      </form> <hr>
+
+      <h3> Here are your to-dos: </h3>
+
+
+
+    </div>
+
+  </body>
+</html>

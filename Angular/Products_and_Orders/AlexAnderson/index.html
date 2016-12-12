@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <script src = 'bower_components/angular/angular.js'></script>
+    <script type='text/javascript'>
+      var myAppModule = angular.module('myApp', []);
+      //create a factory (attached to this module)
+      myAppModule.factory('productFactory', function(){
+        //the factory is nothing more than a function that returns an object
+        var products = [];
+        var factory = {};
+        //Add a getProducts key to the factory object with a value of a function.
+        factory.getProducts = function (callback){
+          //pass the students to a callback to be used by whoever calls the method
+          callback(products);
+        }
+        factory.addProducts = function (newProduct, callback){
+          // console.log("Mic check 12..12");
+          newProduct.quantity = 50;
+          // console.log(newProduct);
+          products.push(newProduct);
+          callback(products);
+        }
+        factory.updateProducts = function (item, callback){
+          // console.log(item);
+          // console.log(products);
+          products[item].quantity--;
+          console.log(products[item].quantity);
+          // if (products[index].quantity > 0){
+          // products.quantity = products.quantity - 1;
+          // }
+          // //products.splice(item,1);
+          callback(products);
+        }
+        //Most important step: return the object so it can be used by the rest of our angular code
+        return factory;
+      });
+      //Create a controller (attached to this module), and inject the productFactory in it.
+      myAppModule.controller('productsController',['$scope', 'productFactory',function ($scope, productFactory){
+        productFactory.getProducts(function (data){
+          $scope.products = data;
+          })
+          //adding values to product factory
+        $scope.addProducts = function(){
+          productFactory.addProducts($scope.newProduct, function(products){
+            $scope.newProduct = {};
+            $scope.products = products;
+          });
+        }
+        $scope.updateProducts = function(index){
+          productFactory.updateProducts(index, function(products){
+            $scope.products = products;
+          })
+        }
+      }])
+    </script>
+    <style>
+      .addProduct{
+        display: inline-block;
+        }
+        #filter{
+          margin-left: 200px;
+          vertical-align: top;
+          display: inline-block;
+        }
+        form{
+          display: inline-block;
+        }
+        form,input{
+          margin-left: 25px;
+        }
+        table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      }
+      td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+      }
+
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller='productsController'>
+      <div class="addProduct">
+        <h1>Product Controller</h1>
+      <form>
+        Product Name: <input type='text' ng-model='newProduct.name'> <br>
+        Product Price: <input type='number' ng-model='newProduct.price'>
+        <input type='submit' value='Create Product' ng-click='addProducts()'>
+      </form>
+      </div>
+      <hr>
+      <input type="text" id="filter" placeholder="filter..." ng-model="productModel"> <br>
+      <table ng-die>
+        <tr>
+          <th>Product Name</th>
+          <th>Product Price</th>
+          <th>Product Quantity</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat="product in products | orderBy: price | filter: productModel  track by $index">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.quantity}}</td>
+          <td><button type="button" name="button" ng-click='updateProducts($index)'>Buy</button></td>
+        </tr>
+        </div>
+      </table>
+    </div>
+  </body>
+</html>
