@@ -1,33 +1,14 @@
-
 <!DOCTYPE html>
 <html ng-app="blogApp">
 <head>
 	<title>Blog</title>
+	<!-- angular / angular-route must be loaded before anything else -->
 	<script type="text/javascript" src="/angular/angular.js"></script>
   <script type="text/javascript" src="/angular-route/angular-route.js"></script>
-	<script type="text/javascript">
-
-	var app = angular.module("blogApp", []);
-	app.controller("blogController", ["$scope", "$http", function ($scope, $http) {
-		$scope.blogs = [];
-		$http.get("/blogs").then(function (response) {
-			$scope.blogs = response.data.blogs;
-		});
-		$scope.submitForm = function (newBlog)
-		{
-				console.log("Submitting Form:", newBlog);
-				$http.post("/blogs", newBlog).then(function (response){
-					console.log("Response After Submitting:", response);
-					$scope.blogs.push(response.data.blog);
-
-					//Reset Form
-					newBlog.title = "";
-					newBlog.author = "";
-					newBlog.description = "";
-				});
-		};
-	}]);
-	</script>
+	<!-- app.js must be loaded before factories/controllers -->
+	<script type="text/javascript" src="/scripts/app.js"></script>
+	<script type="text/javascript" src="/scripts/blog-factory.js"></script>
+	<script type="text/javascript" src="/scripts/blog-controller.js"></script>
 </head>
 <body>
   <h1>Welcome</h1>
@@ -38,17 +19,15 @@
 			Desc: <input type="text" ng-model="newBlog.description"> <br>
 			<input type="submit" value="Add Blog">
 		</form>
-
 		<ul>
-			<li ng-repeat="blog in blogs | orderBy: postDate">
+			<li ng-repeat="blog in blogs | orderBy: postDate track by $index">
 				<span ng-bind="blog.title"></span>
-        <span ng-bind="blog.author"></span>
-        <span ng-bind="blog.description"></span>
-        <span ng-bind="blog.postDate | date: 'MM dd, yyyy'"></span>
-
+				<span ng-bind="blog.author"></span>
+				<span ng-bind="blog.description"></span>
+				<span ng-bind="blog.postDate | date: 'MM dd, yyyy'"></span>
+				<button type="button" name="button" ng-click='showBlog(blog._id)'>Show Blog</button>
 			</li>
 		</ul>
-
 	</div>
-
 </body>
+</html>
