@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+	<title>TodoList</title>
+	<script type="text/javascript" src="/angular/angular.js"></script>
+	<script type="text/javascript">
+		
+var app = angular.module("todoApp", []);
+
+app.factory("todoItemFactory", ["$http", function ($http) {
+
+	var factory = {};
+	factory.index = function (retreivedItems)
+	{
+		$http.get("/items").then(function (response) {
+			retreivedItems(response.data.items);
+		});
+	};
+
+	factory.create = function (newItem, finishedCreatingItem)
+	{
+		$http.post("/items", newItem).then(function (response) {
+			finishedCreatingItem(response.data.item);
+		});
+	};
+
+	return factory;
+
+}]);
+
+app.controller("todoItemsListController", ["$scope", "todoItemFactory", function ($scope, todoItemFactory) {
+	$scope.items = [];
+
+	todoItemFactory.index(function (items) {
+		$scope.items = items;
+	});
+
+	$scope.submitForm = function (newItem)
+	{
+		todoItemFactory.create(newItem, function (createdItem) {
+			$scope.items.push(createdItem);
+
+			// Reset Form
+			newItem.title = "";
+			newItem.dueDate = "";
+		});
+	};
+}]);
+
+	</script>
+</head>
+<body>
+	<div ng-controller="todoItemsListController">
+		
+		<form ng-submit="submitForm(newItem);">
+			<input type="text" ng-model="newItem.title">
+			<input type="date" ng-model="newItem.dueDate">
+			<input type="submit" value="Submit">
+		</form>
+
+		<ul>
+			<li ng-repeat="item in items | orderBy: 'dueDate'">
+				<span ng-bind="item.title"></span> - 
+				<span ng-bind="item.dueDate | date:'MMM dd, yyyy'"></span>
+			</li>
+		</ul>
+
+	</div>
+
+</body>
+</html>
