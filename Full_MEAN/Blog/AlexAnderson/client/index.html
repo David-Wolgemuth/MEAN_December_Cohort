@@ -11,18 +11,41 @@
 	app.controller("blogController", ["$scope", "$http", function ($scope, $http) {
 		$scope.blogs = [];
 		$http.get("/blogs").then(function (response) {
-			$scope.blogs = response.data;
+			$scope.blogs = response.data.blogs;
 		});
+		$scope.submitForm = function (newBlog)
+		{
+				console.log("Submitting Form:", newBlog);
+				$http.post("/blogs", newBlog).then(function (response){
+					console.log("Response After Submitting:", response);
+					$scope.blogs.push(response.data.blog);
+
+					//Reset Form
+					newBlog.title = "";
+					newBlog.author = "";
+					newBlog.description = "";
+				});
+		};
 	}]);
 	</script>
 </head>
 <body>
   <h1>Welcome</h1>
 	<div ng-controller="blogController">
+		<form ng-submit="submitForm(newBlog);">
+			Title: <input type="text" ng-model="newBlog.title"> <br>
+			Author: <input type="text" ng-model="newBlog.author"> <br>
+			Desc: <input type="text" ng-model="newBlog.description"> <br>
+			<input type="submit" value="Add Blog">
+		</form>
 
 		<ul>
-			<li ng-repeat="blog in blogs">
-				<span ng-bind="blog"></span>
+			<li ng-repeat="blog in blogs | orderBy: postDate">
+				<span ng-bind="blog.title"></span>
+        <span ng-bind="blog.author"></span>
+        <span ng-bind="blog.description"></span>
+        <span ng-bind="blog.postDate | date: 'MM dd, yyyy'"></span>
+
 			</li>
 		</ul>
 

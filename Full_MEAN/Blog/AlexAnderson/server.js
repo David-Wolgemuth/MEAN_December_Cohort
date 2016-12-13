@@ -11,6 +11,7 @@ var mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost/blog");
 
+//model schema for blog
 var BlogSchema = new mongoose.Schema({
   title: String,
   author: String,
@@ -28,9 +29,30 @@ app.use(express.static("./bower_components"));
 
 
 app.get("/blogs", function (req, res){
-  res.json(["item1", "item2"]);
+    Blog.find({}, function (err,blogs){
+      res.json({blogs: blogs});
+    });
 });
+app.post("/blogs", function (req, res){
 
+  console.log("Data From Client:", req.body);
+  var blog = new Blog({
+    title: req.body.title,
+    author: req.body.author,
+    description: req.body.description
+  });
+  blog.postDate = new Date();
+
+  blog.save(function (err) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      console.log("Successfully Saved:", blog);
+    }
+    res.json({ blog: blog});
+  });
+});
 app.listen(8000, function () {
   console.log("Listening");
 });
