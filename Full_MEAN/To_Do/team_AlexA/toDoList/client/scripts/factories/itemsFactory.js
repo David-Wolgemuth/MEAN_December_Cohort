@@ -3,7 +3,8 @@ myApp.factory('itemsFactory', function($http){
     var items = [];
     var index = 1;
     factory.getItems = function(callback){
-        $http.get('/')
+        $http.get('/').then(function(res){
+        })
     }
     factory.addItem = function(item, pushItem){
         var now = new Date();
