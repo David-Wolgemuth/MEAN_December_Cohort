@@ -7,10 +7,13 @@ root = __dirname,
 port = process.env.PORT || 8000,
 app = express();
 
+
 app.use(express.static(path.join(root, 'client')));
 app.use(express.static(path.join(root, 'node_modules')));
 app.use(express.static(path.join(root, 'server')));
 app.use( bp.json());
+
+
 
 route_setter(app);
 

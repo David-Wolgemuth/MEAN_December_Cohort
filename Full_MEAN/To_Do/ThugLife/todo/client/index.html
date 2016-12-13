@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
   <head>
     <meta charset="utf-8">
     <title></title>
+
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <script src="app.js"></script>
+    <script src="scripts/factories/ToDoFactory.js"></script>
+    <script src="scripts/controllers/ToDoController.js"></script>
   </head>
   <body>
+    {{ ToDo}}
     <h1>ToDo App</h1>
+    <div ng-controller="ToDoController">
+      <form ng-submit="create()">
+        Add to list: <input type="text" ng-model="ToDo.item">
+        <input type="submit">
+      </form>
+      <ul>
+        <li ng-repeat=" ToDo in ToDos ">{{ ToDo.item }}</li>
+      </ul>
+    </div>
   </body>
 </html>

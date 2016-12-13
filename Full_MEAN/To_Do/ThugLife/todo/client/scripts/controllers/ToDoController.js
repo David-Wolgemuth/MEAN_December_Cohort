@@ -1,4 +1,4 @@
-var ToDoFactory = require('./../factories/ToDo.js')
+var app = angular.module('app')
 app.controller('ToDoController', ['$scope', 'ToDoFactory', function($scope, ToDoFactory){
   function setToDos(data){
     $scope.ToDos = data;
@@ -6,11 +6,17 @@ app.controller('ToDoController', ['$scope', 'ToDoFactory', function($scope, ToDo
   }
 
   $scope.getToDos = function(){
-    ToDoFactory.index(setToDos);
+    ToDoFactory.index(function(returnData){
+      setToDos(returnData.data);
+    })
   }
   $scope.getToDos();
   $scope.addToDo = function(){
     ToDoFactory.create(ToDo, setToDos)
   }
-
+  $scope.create = function(){
+    console.log($scope.ToDo)
+    ToDoFactory.create($scope.ToDo, setToDos)
+    $scope.getToDos();
+  }
 }])

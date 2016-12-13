@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-ap = "myApp">
+<html ng-app = "myApp">
     <head>
         <meta charset="utf-8">
         <title>To Do List</title>
         <link rel="stylesheet" type = "text/css" href="/stylesheets/style.css">
-        <script src='bower_components/angular/angular.js'></script>
-        <script src='bower_components/angular/angular-route.js'></script>
+        <script src='/angular/angular.js'></script>
+        <script src='/angular-route/angular-route.js'></script>
         <script src='scripts/app.js'></script>
         <script src='scripts/controllers/controller.js'></script>
         <script src='scripts/factories/itemsFactory.js'></script>
@@ -13,13 +13,11 @@
     <body>
         <h1>To Do List</h1>
         <div id = "#wrapper" ng-controller = "itemController">
-            <form class="" action="index.html" method="post">
-                Item: <input type="text" name="item" ng-model = "newItem.title" value=""> <br>
-                Description <input type="text" name="description" ng-model = "newItem.description" value=""><br>
-                <button type="submit" name="subBtn" ng-click = "addItem()">Add Item<button>
-            </form>
+            Item: <input type="text" name="item" ng-model = "newItem.title" value=""> <br>
+            Description <input type="text" name="description" ng-model = "newItem.description" value=""><br>
+            <button type="submit" name="subBtn" ng-click = "callAddItem()">Add Item</button>
             <ul ng-repeat = "item in items track by $index">
-
+                <li>{{ item.title }}: {{ item.description }}</li>
             </ul>
         </div>
     </body>
