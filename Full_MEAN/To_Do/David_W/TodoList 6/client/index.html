@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head>
+	<title>TodoList</title>
+	<script type="text/javascript" src="/angular/angular.js"></script>
+	<script type="text/javascript">
+		
+var app = angular.module("todoApp", []);
+app.controller("todoItemsListController", ["$scope", "$http", function ($scope, $http) {
+	$scope.items = [];
+
+	$http.get("/items").then(function (response) {
+		$scope.items = response.data.items;
+	});
+
+	$scope.submitForm = function (newItem)
+	{
+		$http.post("/items", newItem).then(function (response) {
+
+			$scope.items.push(response.data.item);
+
+			// Reset Form
+			newItem.title = "";
+			newItem.dueDate = "";
+		});
+	};
+}]);
+
+	</script>
+</head>
+<body>
+	<div ng-controller="todoItemsListController">
+		
+		<form ng-submit="submitForm(newItem);">
+			<input type="text" ng-model="newItem.title">
+			<input type="date" ng-model="newItem.dueDate">
+			<input type="submit" value="Submit">
+		</form>
+
+		<ul>
+			<li ng-repeat="item in items | orderBy: 'dueDate'">
+				<span ng-bind="item.title"></span> - 
+				<span ng-bind="item.dueDate | date:'MMM dd, yyyy'"></span>
+			</li>
+		</ul>
+
+	</div>
+
+</body>
+</html>
