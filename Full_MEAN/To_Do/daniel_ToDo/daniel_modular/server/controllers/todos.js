@@ -1,17 +1,46 @@
 var mongoose = require('mongoose');
-var Item = mongoose.model('Item');
+var Todo = mongoose.model("Todo");
 
 module.exports = {
 
-  var thelist = {};
-
-  thelist.add = function(req, res){
-    var item = new Item ({text: req.body.todo, duedate: req.body.duedate})
-    item.save(function(err){
-      if(!err){
-        res.json({})
+  index: function(req, res){
+    Todo.find({}, function(err, todos){
+      if (!err) {
+        res.json({todos: todos});
       }
-    })
-  }
+      else {
+        console.log(err);
+      }
+    });
+  },
 
-}
+  create: function(req, res)
+  {
+  var todo = new Todo({
+    text: req.body.text,
+    date: req.body.date
+    });
+    todo.save(function(err, todo){
+      if (!err) {
+        res.json(todos);
+      }
+      else {
+        console.log(err);
+      }
+    });
+  },
+
+  delete: function(req, res)
+  {
+    Todo.remove({_id: req.params.todo_id},
+      function(err, todo){
+      if (!err) {
+        res.json(todos);
+      }
+      else {
+        console.log(err);
+      }
+    }
+  );
+  }
+};

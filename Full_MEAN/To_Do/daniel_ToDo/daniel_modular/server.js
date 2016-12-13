@@ -1,23 +1,18 @@
-var mongoose = require('mongoose');
-var express = require('express');
-var path = require('path');
-
+var express = require("express");
 var app = express();
-
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(express.static(path.join(__dirname, './client/static')));
-app.use(express.static(path.join(__dirname, './client/views')));
+app.use(bodyParser.json());
+app.use(bodyParser.json({type :'application/vnd.api+json'}));
 
-app.set('views', path.join(__dirname, './client/views'));
+require("./server/config/mongoose.js");
 
-require('./server/config/mongoose.js');
+var routes = require("./server/config/routes.js");
+routes(app);  // `routes` is a function exported from `routes.js`, tells the app to listen for various urls
 
-var routes_setter = require('./server/config/routes.js');
+app.use(express.static("./client"));
+app.use(express.static("./node_modules"));
 
-routes_setter(app);
-
-app.listen(8000, function() {
-  console.log('listening on port 8000');
+app.listen(8000, function () {
+    console.log("Listening");
 });

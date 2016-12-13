@@ -1,9 +1,8 @@
-var mongoose   = require('mongoose');
+var mongoose = require('mongoose');
 
-//Schemas go here!
-var itemSchema = new mongoose.Schema({
+var Todo = new mongoose.Schema({
   text: String,
-  duedate: Date,
-
+  date: Date,
 });
-var Item = mongoose.model('Item', itemSchema);
+
+mongoose.model("Todo", Todo);
