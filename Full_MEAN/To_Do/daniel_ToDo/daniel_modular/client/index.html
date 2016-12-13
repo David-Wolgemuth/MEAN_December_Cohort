@@ -5,16 +5,19 @@
     <title> The ToDo App </title>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
     <script src="scripts.js"></script>
+
   </head>
   <body ng-controller="myController">
 
-    <h1> Welcome To The Wall </h1>
+    <h1> Welcome To Your To Do List! </h1>
+    <h2> You have {{ todos.length }} unfinished todos!</h2>
     <h3>Here are your todos:</h3><hr>
 
     <div class="list">
       <ul ng-repeat="todo in todos">
           <li>
-              <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}, <span ng-bind="todo.date | date:'MM/dd/yyyy'"></span>
+              <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }} by:
+              <span ng-bind="todo.date | date: MM/dd/yyyy "></span>
           </li>
       </ul>
     </div><hr>
@@ -26,7 +29,7 @@
 
                     <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
                     <input type="text" placeholder="What do you have to do?" ng-model="formData.text">
-                    <input type="date" placeholder="When is it due?" ng-model="formData.date">
+                    <input type="date" ng-model="formData.date">
                 </div>
 
                 <!-- createToDo() WILL CREATE NEW TODOS -->

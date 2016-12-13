@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html ng-app="blogApp">
+<head>
+	<title>Blog</title>
+	<script type="text/javascript" src="/angular/angular.js"></script>
+  <script type="text/javascript" src="/angular-route/angular-route.js"></script>
+	<script type="text/javascript">
+
+	var app = angular.module("blogApp", []);
+	app.controller("blogController", ["$scope", "$http", function ($scope, $http) {
+		$scope.blogs = [];
+		$http.get("/blogs").then(function (response) {
+			$scope.blogs = response.data;
+		});
+	}]);
+	</script>
+</head>
+<body>
+  <h1>Welcome</h1>
+	<div ng-controller="blogController">
+
+		<ul>
+			<li ng-repeat="blog in blogs">
+				<span ng-bind="blog"></span>
+			</li>
+		</ul>
+
+	</div>
+
+</body>
