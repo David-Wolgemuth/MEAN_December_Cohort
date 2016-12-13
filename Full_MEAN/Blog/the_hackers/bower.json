@@ -1,0 +1,17 @@
+{
+  "name": "QuotingDojo",
+  "description": "QuotingDojo application to keep track of all the profound ninjas",
+  "main": "server.js",
+  "authors": [
+    "Abbey Charles <abbeycharles@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/David-Wolgemuth/MEAN_December_Cohort",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
