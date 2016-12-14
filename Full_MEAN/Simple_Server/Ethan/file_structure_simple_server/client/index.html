@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- DONT FORGET TO ADD YOUR ANGULAR APP! -->
+<html ng-app='app'>
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Friends</title>
+    <!-- Angular from bower_components, otherwise find the CDN -->
+    <script type="text/javascript" src="angular/angular.js"></script>
+    <script type="text/javascript" src="angular-route/angular-route.js"></script>
+    <!-- End Bower Components -->
+    <script type="text/javascript" src="assets/app.js"></script>
+    <script type="text/javascript" src="assets/controllers/newController.js"></script>
+    <script type="text/javascript" src="assets/controllers/editController.js"></script>
+    <script type="text/javascript" src="assets/factories/friendsFactory.js"></script>
+  </head>
+  <body ng-controller='newController'>
+    <a href="#!/new">new</a>
+    <div ng-view="">
+    </div>
+    <hr>
+    <div>
+      <table style='border: 1px solid black'>
+        <thead>
+          <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>language</td>
+            <td>show</td>
+            <td>update</td>
+            <td>delete</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='friend in friends'>
+            <td>{{friend._id}}</td>
+            <td>{{friend.name}}</td>
+            <td>{{friend.language}}</td>
+            <td><a href="#!/show/{{friend._id}}" >show</a></td>
+            <td><a href="" ng-click=''>update</a></td>
+            <td><a href='' ng-click='deleteFriend(friend._id)'>delete</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "Inventory_Project",
+  "homepage": "https://github.com/David-Wolgemuth/MEAN_December_Cohort",
+  "authors": [
+    "Alex Anderson"
+  ],
+  "description": "Project that allows user to create inventory using angular factories",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.0",
+    "angular-route": "^1.6.0"
+  }
+}

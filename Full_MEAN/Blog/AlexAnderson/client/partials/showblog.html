@@ -1,0 +1,12 @@
+
+<h1>Hello..is it me you're looking for</h1>
+<div ng-controller="showblogController">
+	Title:<span ng-bind="blog.title"></span>
+	Author:<span ng-bind="blog.author"></span>
+	Descrption<span ng-bind="blog.description"></span>
+	Post Date:<span ng-bind="blog.postDate | date: 'MM dd, yyyy'"></span>
+	Votes:<span ng-bind="blog.vote"></span>
+</div>
+<div>
+	<a href="/#!/">Back Home</a>	
+</div>
