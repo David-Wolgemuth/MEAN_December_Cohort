@@ -20,7 +20,10 @@ module.exports = {
     create: function (req, res){
       var item = new Entry({
           title: req.body.title,
-          dueDate: req.body.dueDate
+          author: req.body.author,
+          description: req.body.description,
+          vote: 0,
+          postDate: new Date(),
       });
       item.save(function (err) {
           if (err) {
@@ -29,6 +32,16 @@ module.exports = {
               console.log("Successfully Saved:", item);
           }
           res.json({ item: item });
+      });
+    },
+
+    showBlog: function (req, res){
+      console.log(req.params.id);
+      var id = req.params.id;
+      console.log ("This is the object id you clicked:", id);
+      Entry.findOne({_id: id}, function (err,blog){
+        console.log("Specific blog has been located!", item);
+        res.json({item: item});
       });
     }//,
 

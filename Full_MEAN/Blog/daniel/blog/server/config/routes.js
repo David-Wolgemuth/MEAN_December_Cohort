@@ -11,4 +11,5 @@ module.exports = function (app)
 {
     app.get("/items", allItems.index);
     app.post("/items", allItems.create);
+    app.get("/showBlog/:id", allItems.showBlog);
 };
