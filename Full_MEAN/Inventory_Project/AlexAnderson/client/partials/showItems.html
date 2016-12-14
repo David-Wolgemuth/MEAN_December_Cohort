@@ -1,0 +1,18 @@
+
+<div ng-controller="showitemsController">
+  <table ng-die>
+    <tr>
+      <th>Item Name</th>
+      <th>Description</th>
+      <th>Item Price</th>
+      <th>User</th>
+    </tr>
+    <tr ng-repeat="item in items | orderBy: price | filter: itemName  track by $index">
+      <td>{{ item.itemName }}</td>
+      <td>{{ item.description }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.user }}</td>
+    </tr>
+    </div>
+  </table>
+</div>

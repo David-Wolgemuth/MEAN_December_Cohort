@@ -5,10 +5,16 @@
         <title></title>
         <script src="angular/angular.js"></script>
         <script src="angular-route/angular-route.js"></script>
+        <script src="assets/app.js"></script>
+        <script src="assets/factories/UserFactory.js"></script>
+        <script src="assets/controllers/UserController.js"></script>
+        <script src="assets/controllers/ShowController.js"></script>
+        <script src="assets/controllers/EditController.js"></script>
     </head>
     <body>
         <h1>Template</h1>
-        <div id="partials" ng-view>
+        <h3><a href="#!/">Home</a></h3>
+        <div ng-view>
             <!--Partial views loaded here-->
         </div>
     </body>

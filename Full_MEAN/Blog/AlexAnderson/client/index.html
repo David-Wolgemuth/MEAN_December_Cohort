@@ -1,31 +1,20 @@
-
 <!DOCTYPE html>
 <html ng-app="blogApp">
 <head>
 	<title>Blog</title>
+	<!-- angular / angular-route must be loaded before anything else -->
 	<script type="text/javascript" src="/angular/angular.js"></script>
-  <script type="text/javascript" src="/angular-route/angular-route.js"></script>
-	<script type="text/javascript">
-
-	var app = angular.module("blogApp", []);
-	app.controller("blogController", ["$scope", "$http", function ($scope, $http) {
-		$scope.blogs = [];
-		$http.get("/blogs").then(function (response) {
-			$scope.blogs = response.data;
-		});
-	}]);
-	</script>
+	<script type="text/javascript" src="/angular-route/angular-route.js"></script>
+	<!-- app.js must be loaded before factories/controllers -->
+	<script type="text/javascript" src="/scripts/app.js"></script>
+	<script type="text/javascript" src="/scripts/blog-factory.js"></script>
+	<script type="text/javascript" src="/scripts/blog-controller.js"></script>
 </head>
 <body>
-  <h1>Welcome</h1>
-	<div ng-controller="blogController">
 
-		<ul>
-			<li ng-repeat="blog in blogs">
-				<span ng-bind="blog"></span>
-			</li>
-		</ul>
+	<h1 style="border: 1px solid; background: gray;"><a href="/#!/">HOME</a> My Cool Website Banner</h1>
 
-	</div>
+	<div ng-view=""><!-- Everything gets put here --></div>
 
 </body>
+</html>

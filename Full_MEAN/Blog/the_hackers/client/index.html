@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myApp">
+<head>
+  <meta charset="UTF-8">
+  <script type = "text/javascript" src="angular/angular.js" charset="utf-8"></script>
+  <script type = "text/javascript" src="angular-route/angular-route.js" charset="utf-8"></script>
+
+  <script>
+    var myApp = angular.module('myApp', []);
+    console.log('Is the page loading?');
+
+    // myApp.config routes go here; loads partials, directs to full pages
+
+    // Factory goes here
+
+    // Client-side Controller goes here
+
+  </script>
+
+
+  <title>Document</title>
+</head>
+<body>
+  <form>
+    Author: <input type="text" name = "author">
+    Title: <input type="text" name = "title">
+    Post: <input type="textarea" cols='50' rows='100' name="content">
+    <input type="submit" value="Post Blog">
+  </form>
+  <!-- load a partial view here for the post titles to show -->
+</body>
+</html>

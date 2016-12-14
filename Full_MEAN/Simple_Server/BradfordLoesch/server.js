@@ -1,6 +1,6 @@
 var mongoose = require( 'mongoose' ),
     express  = require( 'express' ),
-    bp       = require('body-parser'),
+    bp       = require( 'body-parser' ),
     path     = require( 'path' ),
     database = require('./server/config/mongoose.js'),
     routes_setter = require('./server/config/routes.js'),

@@ -1,0 +1,17 @@
+<div ng-controller = "itemController">
+    <h1>Items Table</h1>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>$</th>
+            <th>User</th>
+        </tr>
+        <tr ng-repeat = "item in items">
+            <td>{{ item.title }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.user }}</td>
+        </tr>
+    </table>
+</div>
