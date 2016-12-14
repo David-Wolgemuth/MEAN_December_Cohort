@@ -23,11 +23,13 @@
 			<li ng-repeat="blog in blogs | orderBy: postDate track by $index">
 				<span ng-bind="blog.title"></span>
 				<span ng-bind="blog.author"></span>
-				<span ng-bind="blog.description"></span>
 				<span ng-bind="blog.postDate | date: 'MM dd, yyyy'"></span>
-				<button type="button" name="button" ng-click='showBlog(blog._id)'>Show Blog</button>
+				<a href="#!/showblog/{{blog._id}}"><button type="button" name="button" ng-click='showBlog(blog._id)'>Show Blog</button></a>
+				<button type="button" name="button" ng-click='voteBlog(blog._id)'><img src="http://worldartsme.com/images/green-thumb-clipart-1.jpg" alt="" width="10" height="10"></button>
 			</li>
 		</ul>
 	</div>
+	<div ng-view=""></div>
+
 </body>
 </html>

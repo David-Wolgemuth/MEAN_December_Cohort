@@ -35,11 +35,25 @@ module.exports = {
         }
         res.json({ blog: blog});
       });
-    }
-  // showBlog: function (id, req, res)
-  //   {
-  //     Blog.find({_id: id}, function (err,blogs){
-  //       res.json({blogs: blogs});
-  //     });
-  //   }
+    },
+  showBlog: function (req, res)
+    {
+      console.log(req.params.id);
+      var id = req.params.id;
+      console.log ("This is the object id:",id);
+      console.log("in server.controllers/blog.js");
+      Blog.findOne({_id: id}, function (err,blog){
+        console.log("Blog information has been located!", blog);
+        res.json({blog: blog});
+      });
+    },
+
+  voteBlog: function (req, res)
+  {
+    console.log ("Voting has started!");
+    Blog.update({_id: id}, function (err,blog){
+      console.log("Vote logged");
+      res.json({blog: blog});
+    });
+  }
 };

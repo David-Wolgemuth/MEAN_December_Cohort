@@ -9,4 +9,7 @@ module.exports = function (app)
 {
   app.get("/blogs", blogs.index);
   app.post("/blogs", blogs.create);
+  //need to :paramater name to include params
+  app.get("/showBlog/:id", blogs.showBlog);
+  app.post("/voteBlog/:id/:vote", blogs.voteBlog);
 };

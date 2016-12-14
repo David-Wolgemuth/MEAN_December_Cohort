@@ -7,7 +7,8 @@ var BlogSchema = new mongoose.Schema({
   title: String,
   author: String,
   description: String,
-  postDate: Date
+  postDate: Date,
+  vote: Number
 }, {timestamps: true});
 
 mongoose.model("Blog", BlogSchema); //Setting
