@@ -2,7 +2,9 @@
 var mongoose = require('mongoose');
 var Blog = mongoose.model('Blog');
 var blogs = require('../controllers/blogs.js');
-
+// first route is from the factory, second is from server controller
 module.exports = function(app) {
-  app.get('/', blogs.index);
+  app.get('/blogs', blogs.index);
+  app.post('/blogs', blogs.create);
+  app.post('/vote', blogs.vote);
 }

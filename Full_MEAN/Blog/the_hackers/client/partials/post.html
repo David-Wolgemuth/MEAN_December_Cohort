@@ -1,0 +1,15 @@
+<a href="/index">Home</a>
+
+<div ng-controller="blogController">
+  <div ng-repeat="blog in blogs | filter: {_id : id}">
+    <h2>{{ blog.title }}</h2>
+    <h4>Written by: {{ blog.author }}</h4>
+    <p>{{ blog.content }}</p>
+
+      <input ng-click="callVote('up')" type="submit" name="up" value="Thumbs Up">
+      <h4>Vote on this post!</h4>
+      <h4>Votes so far: {{ blog.votes }}</h4>
+      <input ng-click="callVote('down')" type="submit" name="down" value="Thumbs Down">
+    </form>
+  </div>
+</div>

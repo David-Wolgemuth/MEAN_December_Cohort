@@ -1,19 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
   <meta charset="UTF-8">
   <script src="angular/angular.js" charset="utf-8"></script>
   <script src="angular-route/angular-route.js" charset="utf-8"></script>
 
   <script>
-    var myApp = angular.module('myApp', []);
+    var myApp = angular.module('myApp', ['ngRoute']);
     console.log('Is the page loading?');
 
     // myApp.config routes go here; loads partials, directs to full pages
 
+    myApp.config(function($routeProvider){
+    $routeProvider
+      .when('/blogs/:id', {
+        templateUrl: 'partials/post.html'
+      })
+      .otherwise({
+        templateUrl: 'partials/list.html'
+      });
+    });
+
+
     // Factory goes here
+    myApp.factory('blogFactory', ['$http', function($http) {
+      var blogs = [];
+      var factory = {};
+
+      factory.index = function(gotBlogs){
+        $http.get("/blogs").then(function(response){
+          gotBlogs(response.data.blogs);
+        });
+      }
+
+      factory.create = function(newBlog, createdBlog) {
+        $http.post("/blogs", newBlog).then(function(response){
+          console.log('This is the create response:', response)
+          createdBlog(response.data.blog);
+        }).catch(function (err) { console.log("ERR", err);})
+      }
+
+      factory.vote = function (upOrDown, id, madeVote){
+        $http.post("/vote", {rate: upOrDown, id: id}).then(function(response){
+          madeVote(response.data.blog);
+        })
+      }
+
+      return factory;
+    }]);
 
     // Client-side Controller goes here
+    myApp.controller('blogController', ['$scope', 'blogFactory', '$routeParams', function($scope, blogFactory, $routeParams){
+      $scope.blogs = [];
+      $scope.id = $routeParams.id
+      blogFactory.index(function(blogs){
+        $scope.blogs = blogs;
+      });
+      $scope.submitForm = function(newBlog){
+        blogFactory.create(newBlog, function(createdBlog){
+          $scope.blogs.push(createdBlog);
+
+          // reset each to an empty string
+          newBlog.title = "";
+          newBlog.author = "";
+          newBlog.content = "";
+          newBlog.votes = 0;
+        });
+      };
+      $scope.callVote = function(upOrDown){
+        blogFactory.vote(upOrDown, $scope.id, function(blog){
+          console.log(blog);
+          // $scope.id = blog._id;
+          for(var i=0; i<$scope.blogs.length; i++){
+            if($scope.blogs[i]._id==blog._id){
+              $scope.blogs[i] = blog;
+            }
+          }
+        })
+      }
+
+    }]);
 
   </script>
 
@@ -21,12 +87,6 @@
   <title>Document</title>
 </head>
 <body>
-  <form>
-    Author: <input type="text" name = "author">
-    Title: <input type="text" name = "title">
-    Post: <input type="textarea" cols='50' rows='100' name="content">
-    <input type="submit" value="Post Blog">
-  </form>
-  <!-- load a partial view here for the post titles to show -->
+  <div ng-view=""></div>
 </body>
 </html>

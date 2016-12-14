@@ -1,0 +1,13 @@
+<div ng-controller="blogController">
+
+  <form ng-Submit = 'submitForm(newBlog)'>
+    Author: <input type="text" ng-Model = "newBlog.author">
+    Title: <input type="text" ng-Model = "newBlog.title">
+    Post: <input type="textarea" cols='50' rows='100' ng-Model="newBlog.content">
+    <input type="submit" value="Post Blog">
+  </form>
+  <ul>
+    <li ng-repeat = "blog in blogs | orderBy: 'votes'"><a href="#!/blogs/{{blog._id}}">{{ blog.title }}</a>- {{ blog.votes }}</li>
+  </ul>
+  <!-- load a partial view here for the post titles to show -->
+</div>
