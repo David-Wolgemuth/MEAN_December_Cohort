@@ -1,0 +1,9 @@
+<div ng-controller = "newController">
+    <h1>New Item</h1>
+    <form ng-submit = "submitForm(newItem)">
+        Item: <input type="text" ng-model = "newItem.title"> <bR>
+        Description: <input type="text" ng-model = "newItem.description"> <br>
+        Price: <input type="text" ng-model="newItem.price"> <br>
+        <input type="submit" value="Save">
+    </form>
+</div>
