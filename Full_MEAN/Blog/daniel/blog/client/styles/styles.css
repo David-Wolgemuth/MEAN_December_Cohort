@@ -1,1 +1,19 @@
-h3 { color: blue;}
+html {
+  width: 600px;
+  border: 1px solid black;
+
+}
+
+.navbar {
+  border: 1px solid;
+  background: linear-gradient(to bottom, #fcfff4 0%,#dfe5d7 40%,#b3bead 100%);
+  padding: 10px;
+}
+
+h3 {
+  color: darkgray;
+}
+
+input {
+  margin: 2px;
+}

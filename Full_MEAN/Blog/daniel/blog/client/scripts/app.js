@@ -2,12 +2,14 @@
 
 var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider){
-
-    $routeProvider.when("/",{
-        templateUrl:"partials/main.html"
-        // other partial routes for index go here!
-    });
-
-    //other partials for other Routes go here
+  $routeProvider
+  //when a specific url load the partial
+      .when("/showblog/:id",{
+          templateUrl:"partials/showblog.html"
+      })
+  //else load the default  
+      .otherwise ({
+          templateUrl:"partials/main.html"
+      });
 
 });

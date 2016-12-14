@@ -39,7 +39,7 @@ module.exports = {
       console.log(req.params.id);
       var id = req.params.id;
       console.log ("This is the object id you clicked:", id);
-      Entry.findOne({_id: id}, function (err,blog){
+      Entry.findOne({_id: id}, function (err,item){
         console.log("Specific blog has been located!", item);
         res.json({item: item});
       });

@@ -1,16 +1,18 @@
 <div ng-controller="mainController">
 
-	<form ng-submit="submitForm(newItem);">
-		<input type="text" ng-model="newItem.title">
-		<input type="date" ng-model="newItem.dueDate">
+	<form ng-submit="submitForm(newItem);"><br>
+	Title:	<input type="text" ng-model="newItem.title"><br>
+	Author:	<input type="text" ng-model="newItem.author"><br>
+	Description: <input type="text" ng-model="newItem.description"><br>
 		<input type="submit" value="Submit">
 	</form>
 
 	<ul>
-		<li ng-repeat="item in items | orderBy: 'dueDate'">
-			<span ng-bind="item.title"></span> -
-			<span ng-bind="item.dueDate | date:'MMM dd, yyyy'"></span>
-		</li>
+		<li ng-repeat="item in items | orderBy: postDate track by $index">
+				<span ng-bind="item.title"></span>
+				<span ng-bind="item.author"></span>
+				<span ng-bind="item.postDate | date: 'MMM dd, yyyy'"></span>
+				<a href="#!/showblog/{{item._id}}"> Show Info </a>
 	</ul>
 
 </div>
