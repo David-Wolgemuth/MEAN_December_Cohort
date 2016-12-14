@@ -22,22 +22,20 @@
       <table style='border: 1px solid black'>
         <thead>
           <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>language</td>
-            <td>show</td>
-            <td>update</td>
-            <td>delete</td>
+            <td><h3>name</h3></td>
+            <td><h3>language</h3></td>
+            <td><h3>show</h3></td>
+            <td><h3>update</h3></td>
+            <td><h3>delete</h3></td>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat='friend in friends'>
-            <td>{{friend._id}}</td>
-            <td>{{friend.name}}</td>
-            <td>{{friend.language}}</td>
-            <td><a href="#!/show/{{friend._id}}" >show</a></td>
-            <td><a href="" ng-click=''>update</a></td>
-            <td><a href='' ng-click='deleteFriend(friend._id)'>delete</a></td>
+            <td><h3>{{friend.name}}</h3></td>
+            <td><h3>{{friend.language}}</h3></td>
+            <td><h3><a href="#!/show/{{friend._id}}" >show</a></h3></td>
+            <td><h3><a href="#!/edit/{{friend._id}}">update</a></h3></td>
+            <td><h3><a href='' ng-click='deleteFriend(friend._id)'>delete</a></h3></td>
           </tr>
         </tbody>
       </table>
