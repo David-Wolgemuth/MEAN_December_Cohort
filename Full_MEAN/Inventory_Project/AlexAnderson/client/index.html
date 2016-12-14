@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="itemApp">
+<head>
+	<title>Item Management Inventory</title>
+	<!-- angular / angular-route must be loaded before anything else -->
+	<script type="text/javascript" src="/angular/angular.js"></script>
+	<script type="text/javascript" src="/angular-route/angular-route.js"></script>
+	<!-- app.js must be loaded before factories/controllers -->
+	<script type="text/javascript" src="/scripts/app.js"></script>
+	<script type="text/javascript" src="/scripts/item-factory.js"></script>
+	<script type="text/javascript" src="/scripts/item-controller.js"></script>
+</head>
+<body>
+  <h1 style="border: 1px solid; background: gray;">
+		<a href="/#!/">HOME</a>
+		<a href="/#!/newitem">|NewItem|</a>
+		<a href="/#!/items">Items|</a>Inventory Management System</h1>
+
+	<div ng-view=""><!-- Everything gets put here --></div>
+
+</body>
+</html>
