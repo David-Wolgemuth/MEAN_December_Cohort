@@ -4,32 +4,17 @@
 	<title>Blog</title>
 	<!-- angular / angular-route must be loaded before anything else -->
 	<script type="text/javascript" src="/angular/angular.js"></script>
-  <script type="text/javascript" src="/angular-route/angular-route.js"></script>
+	<script type="text/javascript" src="/angular-route/angular-route.js"></script>
 	<!-- app.js must be loaded before factories/controllers -->
 	<script type="text/javascript" src="/scripts/app.js"></script>
 	<script type="text/javascript" src="/scripts/blog-factory.js"></script>
 	<script type="text/javascript" src="/scripts/blog-controller.js"></script>
 </head>
 <body>
-  <h1>Welcome</h1>
-	<div ng-controller="blogController">
-		<form ng-submit="submitForm(newBlog);">
-			Title: <input type="text" ng-model="newBlog.title"> <br>
-			Author: <input type="text" ng-model="newBlog.author"> <br>
-			Desc: <input type="text" ng-model="newBlog.description"> <br>
-			<input type="submit" value="Add Blog">
-		</form>
-		<ul>
-			<li ng-repeat="blog in blogs | orderBy: postDate track by $index">
-				<span ng-bind="blog.title"></span>
-				<span ng-bind="blog.author"></span>
-				<span ng-bind="blog.postDate | date: 'MM dd, yyyy'"></span>
-				<a href="#!/showblog/{{blog._id}}"><button type="button" name="button" ng-click='showBlog(blog._id)'>Show Blog</button></a>
-				<button type="button" name="button" ng-click='voteBlog(blog._id)'><img src="http://worldartsme.com/images/green-thumb-clipart-1.jpg" alt="" width="10" height="10"></button>
-			</li>
-		</ul>
-	</div>
-	<div ng-view=""></div>
+
+	<h1 style="border: 1px solid; background: gray;"><a href="/#!/">HOME</a> My Cool Website Banner</h1>
+
+	<div ng-view=""><!-- Everything gets put here --></div>
 
 </body>
 </html>

@@ -10,6 +10,6 @@ app.config(function($routeProvider){
         templateUrl:"partials/showblog.html"
     })
     .otherwise ({
-      redirectTo: "/"
+        templateUrl:"partials/home.html"
     });
 });
