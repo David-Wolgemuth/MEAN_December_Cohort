@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <script src="angular/angular.js" charset="utf-8"></script>
+  <script src="angular-route/angular-route.js" charset="utf-8"></script>
+
+  <script>
+    var myApp = angular.module('myApp', ['ngRoute']);
+
+    // myApp.config routes go here; loads partials, directs to full pages
+    myApp.config(function($routeProvider){
+    $routeProvider
+      .when('/add', {
+        templateUrl: 'partials/add.html'
+      })
+      .when('/inventory', {
+        templateUrl: 'partials/inventory.html'
+      })
+      .otherwise({
+        templateUrl: 'partials/user.html'
+      });
+    });
+
+    // Factory Goes Here
+    myApp.factory('productFactory', ['$http', function($http){
+      var products = [];
+      var factory = {};
+
+      return factory;
+    }])
+
+    // Controllers go here
+    myApp.controller('productsListController', ['$scope', 'productFactory', '$routeParams', function($scope, productFactory, $routeParams){
+      $scope.products = [{product: 'Cadillac Waterproof Spray', description: 'The perfect spray to keep suede, leather, and canvas dry.', price: 14.99, user: 'Abbey' }]
+    }])
+
+  </script>
+  <title>Document</title>
+</head>
+<body>
+  <div style="height:50px; width: 400px; background-color: lightblue; color: white; display: inline">
+    <a href="/#!/user">HOME</a> <a href="/#!/add">ADD ITEM</a> <a href="/#!/inventory">INVENTORY</a>
+  </div>
+  <div ng-view="">
+    <!-- Partials load here  -->
+  </div>
+</body>
+</html>

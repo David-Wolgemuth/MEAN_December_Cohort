@@ -1,0 +1,26 @@
+<h2>This is the current inventory:</h2>
+
+<table ng-controller="productsListController">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Added By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fake Product</td>
+      <td>Useless Description</td>
+      <td>$99.99</td>
+      <td>Abbey</td>
+    </tr>
+    <tr ng-repeat="product in products">
+      <td>{{ product.product }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.user }}</td>
+    </tr>
+  </tbody>
+</table>
