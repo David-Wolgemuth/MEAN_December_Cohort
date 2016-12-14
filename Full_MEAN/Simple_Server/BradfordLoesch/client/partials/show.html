@@ -1,6 +1,8 @@
-<ul>
-    <li>First Name: {{ user.first_name }}</li>
-    <li>Last Name: {{ user.last_name }}</li>
-    <li>Birthday: {{ user.birthday }}</li>
-    <li>Date added: {{ user.created }}</li>
-</ul>
+<div ng-controller="ShowController">
+    <ul>
+        <li>First Name: <span ng-bind="user.first_name"></span></li>
+        <li>Last Name: {{ user.last_name }}</li>
+        <li>Birthday: {{ user.birthday | date: 'yyyy/MM/dd' }}</li>
+        <li>Date added: {{ user.created | date: 'yyyy/MM/dd' }}</li>
+    </ul>
+</div>
