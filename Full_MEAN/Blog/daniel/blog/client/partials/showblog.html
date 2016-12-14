@@ -1,0 +1,8 @@
+<h2> Blog Details </h2>
+
+<div ng-controller="showController">
+	<h4>Title:</h4><span ng-bind="item.title"></span>
+	<h4>Author:</h4><span ng-bind="item.author"></span>
+	<h4>Descrption</h4><span ng-bind="item.description"></span>
+	<h4>Post Date:</h4><span ng-bind="item.postDate | date: 'MMM dd, yyyy'"></span>
+</div>

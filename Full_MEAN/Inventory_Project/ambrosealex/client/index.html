@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "myApp">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" tyoe="text/css"href="/stylesheets/style.css">
+    <script type = "text/javascript" src="/angular/angular.js"></script>
+    <script type = "text/javascript" src="/angular-route/angular-route.js"></script>
+    <script type = "text/javascript" src="/scripts/app.js"></script>
+    <script type = "text/javascript" src="/scripts/item-factory.js"></script>
+    <script type = "text/javascript" src="/scripts/item-controller.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <div id = "wrapper">
+        <a href="#!/home">Home</a><a href="#!/new">New</a><a href="#!/items">Items</a>
+        <div ng-view=""></div>
+    </div>
+</body>
+</html>
