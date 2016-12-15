@@ -7,7 +7,11 @@ app.factory("customerFactory", ["$http", function ($http) {
   var customer = [];
   var factory = {};
   //Initialize our list of users
-  // var users = [];
+  factory.showCustomers = function (retreivedCustomers){
+    $http.get("/customers").then(function (response){
+      retreivedCustomers(response.data.customers);
+    });
+  };
   //Pass new user info to the factory
   factory.createuser = function(newCustomer, finishedCreatingCustomer)
     {

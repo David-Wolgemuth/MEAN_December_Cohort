@@ -10,6 +10,7 @@ var customer = require("../controllers/customer.js");
 module.exports = function (app)
 {
   app.post("/customers", customer.addcustomer);
+  app.get("/customers", customer.showcustomers);
   // app.post("/item", item.createitem);
   // app.post("/item", item.updateitem);
   // //need to :paramater name to include params

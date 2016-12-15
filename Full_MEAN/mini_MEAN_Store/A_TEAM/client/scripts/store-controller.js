@@ -7,11 +7,17 @@
 //Show item controller to display all items created
   app.controller("customerController", ["$scope", "customerFactory", "$routeParams", function ($scope, customerFactory, $routeParams) {
     $scope.customers = [];
+
+    customerFactory.showCustomers(function(customers){
+      $scope.customers = customers;
+    });
+
       $scope.submitName = function (newCustomer)
         {
-              console.log("in customerController - value passed in from hmtl page",newCustomer);
+              // console.log("in customerController - value passed in from hmtl page",newCustomer);
               customerFactory.createuser(newCustomer, function (createdCustomer)
               {
+                  $scope
                   console.log(createdCustomer);
                   //Reset Form
                   newCustomer.name = "";
