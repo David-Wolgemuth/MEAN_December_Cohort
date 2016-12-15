@@ -1,0 +1,21 @@
+<h1>Who's logged in?</h1>
+<div ng-controller="customerController">
+	<form ng-submit="submitName(newCustomer);">
+		Customer Name: <input type="text" ng-model="newCustomer.name"> <br>
+		<input type="submit" value="Add">
+	</form>
+	<table >
+	<tr>
+		<th>Customer Name</th>
+		<th>Created Date</th>
+		<th>Action</th>
+	</tr>
+	<tr ng-repeat="customer in customer | orderBy: '-createdAt' | filter: name  track by $index">
+		<td>{{ customer.name }}</td>
+		<td>{{ customer.createdAt }}</td>
+		<td><button ng-click="delete($index)">Remove</button></td>
+
+	</tr>
+	</div>
+</table>
+</div>
