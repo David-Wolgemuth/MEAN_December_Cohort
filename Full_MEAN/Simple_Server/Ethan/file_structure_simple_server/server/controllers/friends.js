@@ -25,6 +25,9 @@ function FriendsController(){
         console.log(err);
       }
       else{
+        console.log(req.params.id)
+        console.log(req.body.name)
+        console.log(req.body.language)
         friend.name = req.body.name
         friend.language = req.body.language
         friend.save(function(err,updatedFriend){

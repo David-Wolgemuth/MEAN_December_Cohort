@@ -9,7 +9,8 @@ app.controller('newController', ['$scope','friendsFactory', function($scope, fri
    $scope.addFriend = function(newfriend){
      friendsFactory.create(newfriend, function(returned_data){
        console.log("data from new controller",returned_data);
-      $scope.newfriend=[];
+       newfriend.name='';
+       newfriend.language='';
       index();
      })
    }

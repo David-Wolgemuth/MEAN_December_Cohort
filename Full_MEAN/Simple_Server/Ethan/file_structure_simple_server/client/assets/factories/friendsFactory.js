@@ -11,14 +11,12 @@ app.factory('friendsFactory', ['$http', function($http) {
         if (typeof(callback) == 'function'){
           callback(returned_data.data);
         }
-      }).catch(function (err) { console.log("ERRR", err)});
+      })
     };
-    this.update = function(editfriend,callback){ // what parameters do we need?
-      $http.post('/friends',editfriend).then(function(returned_data){
+    this.update = function(editfriend,callback){
+      $http.post(`/friends/${editfriend._id}`,editfriend).then(function(returned_data){
         console.log(returned_data.data);
-        if (typeof(callback) == 'function'){
-          callback(returned_data.data);
-        }
+        callback(returned_data.data);
       })
     };
     this.index = function(callback){
@@ -32,7 +30,7 @@ app.factory('friendsFactory', ['$http', function($http) {
     };
     this.delete = function(id,callback){// what parameters do we need?
         $http.delete(`/friends/${id}`).then(function(returned_data){
-          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!");
+          console.log("Successfully deleted entry of of id",id);
           callback(returned_data);
         })
     };

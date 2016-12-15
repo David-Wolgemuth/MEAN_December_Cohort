@@ -4,40 +4,44 @@
     uses data to update scope
 */
 
-app.controller("itemController", ["$scope", "itemFactory", "$routeParams", function ($scope, itemFactory, $routeParams) {
-    $scope.items = [];
+app.controller("userController", ["$scope", "itemFactory", "$routeParams", function ($scope, itemFactory, $routeParams) {
+  $scope.submitName = function (newUser)
+    {
+          console.log("in userController - value passed in from hmtl page",newUser);
+          itemFactory.createuser(newUser, function (createdItem)
+          {
+              console.log(createdItem);
+              //Reset Form
+              newItem.name = "";
+          })
+    };
+ }]);
 
-    // blogFactory.index(function (item) {
-    //     $scope.blogs = blogs;
-    // });
-    //
-    // $scope.submitForm = function (newItem)
-    // {
-    //     blogFactory.create(newBlog, function (createdBlog) {
-    //         $scope.blogs.push(createdBlog);
-    //         console.log(createdBlog);
-    //
-    //         //Reset Form
-    //         newBlog.title = "";
-    //         newBlog.author = "";
-    //         newBlog.description = "";
-    //     });
-    // };
-    // $scope.id = $routeParams.id;
-    // $scope.vote = $routeParams.vote;
-    // blogFactory.voteBlog = ($scope.id, $scope.vote, function (blog){
-    //   $scope.blog = blog;
-    // });
+//New item controller to allow user to create new items
+app.controller("newItemController", ["$scope", "itemFactory", "$routeParams", function ($scope, itemFactory, $routeParams) {
+    $scope.submitItem = function (newItem)
+      {
+        console.log(newItem);
+            itemFactory.create(newItem, function (updatedItem)
+            {
+                console.log(updatedItem);
+                //Reset Form
+                newItem.title = "";
+                newItem.description = "";
+                newItem.price = "";
+
+            })
+      };
 }]);
 
-// app.controller("showblogController", ["$scope", "blogFactory", "$routeParams", function ($scope, blogFactory, $routeParams) {
-//
-//     // $scope.blog = {title:"test"};
-//     $scope.id = $routeParams.id;
-//     console.log("Hitting the showblogController!");
-//     console.log("The $routeParams",$scope.id);
-//     blogFactory.showBlog($scope.id, function (blog) {
-//         $scope.blog = blog;
-//     });
-//
-// }]);
+//Show item controller to display all items created
+  app.controller("showItemsController", ["$scope", "itemFactory", "$routeParams", function ($scope, itemFactory, $routeParams) {
+    $scope.items = [];
+    console.log("You have entered the front-end showItemsController");
+    itemFactory.showitems(function (items){
+      console.log("You have entered the showitems function");
+      $scope.items = items;
+      console.log($scope.items);
+    });
+
+   }]);

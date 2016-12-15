@@ -1,0 +1,8 @@
+<div ng-controller='newController'>
+  <form ng-submit='submitForm(newBlog)'>
+    <p>Title: <input type="text" ng-model='newBlog.title'></p>
+    <p>Author: <input type="text" ng-model='newBlog.author'></p>
+    <p><textarea rows="8" cols="80" ng-model='newBlog.content'></textarea></p>
+    <input type="submit" value="Submit">
+  </form>
+</div>
