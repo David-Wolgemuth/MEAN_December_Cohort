@@ -9,8 +9,11 @@ app.factory("customerFactory", ["$http", function ($http) {
   //Initialize our list of users
   // var users = [];
   //Pass new user info to the factory
-  factory.createuser = function(newCustomer)
+  factory.createuser = function(newCustomer, finishedCreatingCustomer)
     {
+    $http.post("/customers", newCustomer).then(function (response){
+      finishedCreatingCustomer(response.data.customer);
+    });
     console.log("I am in the createuser function",newCustomer);
     customer.push(newCustomer);
     console.log(customer);
