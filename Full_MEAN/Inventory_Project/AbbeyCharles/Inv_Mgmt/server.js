@@ -6,11 +6,29 @@ var express = require('express'),
 
 app.use(express.static(path.join(__dirname, './client')));
 app.use(express.static(path.join(__dirname, './bower_components')));
+app.use(bp.json());
 
-require('./server/config/mongoose.js');
+mongoose.Promise = global.Promise
+
+mongoose.connect('mongodb://localhost/Inventory_Mgmt_System');
+
+// Product Schema
+var ProductSchema = new mongoose.Schema({
+  product: String,
+  description: String,
+  price: Number,
+  user: String
+});
+var newItem = mongoose.model("NewItem", ProductSchema); // setting
 
 var routes_setter = require('./server/config/routes.js');
 routes_setter(app)
+
+
+
+
+require('./server/config/mongoose.js');
+
 
 app.listen(8000, function(){
   console.log('listening on port 8000');

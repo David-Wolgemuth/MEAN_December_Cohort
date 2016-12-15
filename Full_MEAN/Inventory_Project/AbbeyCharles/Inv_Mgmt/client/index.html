@@ -26,14 +26,57 @@
     myApp.factory('productFactory', ['$http', function($http){
       var products = [];
       var factory = {};
+      //index function to find all products
+      factory.index = function(getAllProducts){
+        $http.get("/products").then(function(response){
+          console.log('This is the factory response:', response)
+          getAllProducts(response.data.products);
+        }).catch(function (err) { console.log("ERR", err);})
+      }
+      //factory create function
+      factory.create = function(getFromController, returnData) {
+        console.log(getFromController)
+        $http.post("/create", getFromController).then(function(response){
+          console.log('This is the create response:', response)
+          returnData(response.data);
+        }).catch(function (err) { console.log("ERR", err);})
+      }
 
       return factory;
     }])
 
+
+
     // Controllers go here
     myApp.controller('productsListController', ['$scope', 'productFactory', '$routeParams', function($scope, productFactory, $routeParams){
-      $scope.products = [{product: 'Cadillac Waterproof Spray', description: 'The perfect spray to keep suede, leather, and canvas dry.', price: 14.99, user: 'Abbey' }]
-    }])
+      $scope.products = []
+      productFactory.index(function(products){
+        // console.log('These are the products:', products)
+        $scope.products = products;
+      });
+      //create new products
+      $scope.createItem = function(newProduct){
+        console.log('We are inside the createItem controller')
+        console.log("This is a new item:", newProduct)
+        newProduct.user = productFactory.user
+        productFactory.create(newProduct, function(returnedData){
+        })
+      }
+    }]);
+    // adding user to factory
+    myApp.controller('addUserController', ['$scope', 'productFactory', '$routeParams', function($scope, productFactory, $routeParams){
+      $scope.products = []
+      productFactory.index(function(products){
+        $scope.products = products;
+      });
+      $scope.addUser = function(newItem){
+        console.log('This is the user:', newItem);
+        productFactory.user = newItem.user
+      }
+    }]);
+    //next controller goes here
+
+
 
   </script>
   <title>Document</title>

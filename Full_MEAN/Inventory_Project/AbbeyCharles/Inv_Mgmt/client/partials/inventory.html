@@ -10,17 +10,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Fake Product</td>
-      <td>Useless Description</td>
-      <td>$99.99</td>
-      <td>Abbey</td>
-    </tr>
     <tr ng-repeat="product in products">
-      <td>{{ product.product }}</td>
-      <td>{{ product.description }}</td>
-      <td>{{ product.price }}</td>
-      <td>{{ product.user }}</td>
+      <td ng-bind = "product.product"></td>
+      <td ng-bind = "product.description"></td>
+      <td ng-bind = "product.price | currency: '$'"></td>
+      <td ng-bind = "product.user"></td>
     </tr>
   </tbody>
 </table>
