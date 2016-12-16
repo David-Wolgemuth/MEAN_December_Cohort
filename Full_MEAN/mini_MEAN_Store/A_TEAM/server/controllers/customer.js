@@ -29,5 +29,11 @@ module.exports = {
         }
         res.json({customer: customer});
       });
+    },
+    delete: function (req, res){
+      var id = req.body._id;
+      //saving customer to mongodb
+      Customer.remove({_id: id}, function(err){
+      });
     }
 };

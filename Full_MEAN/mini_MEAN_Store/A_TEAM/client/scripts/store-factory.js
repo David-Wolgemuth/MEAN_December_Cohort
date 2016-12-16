@@ -21,37 +21,13 @@ app.factory("customerFactory", ["$http", function ($http) {
     console.log("I am in the createuser function",newCustomer);
     customer.push(newCustomer);
     console.log(customer);
-    // factory.curr = newUser;
-    // console.log(factory.curr);
-    //  userFactory.create($scope.newUser)
-    };
-  factory.create = function (newItem, callback)
+  };
+  factory.delete = function (id, callback)
     {
-      // console.log("You have reached item-factory.js");
-      // console.log("**********************************");
-      // console.log("This is your item without user name,",newItem);
-      // console.log("**********************************");
-      // console.log("Name should appear here",factory.curr);
-      // newItem.user = factory.curr;
-      // console.log ("The item should have user value",newItem);
-      // console.log("**********************************");
-      //
-      // $http.post("/item", newItem).then(function (response)
-      // {
-      // console.log(response);
-      // console.log("*********************");
-      // callback(response.data.item);
-      // console.log("*********************");
-      // });
-    };
-  // factory.showitems = function (callback)
-  //   {
-  //     $http.get("/items").then(function (response){
-  //       console.log("******************");
-  //       callback(response.data.items);
-  //       console.log("******************");
-  //     });
-  //   };
+    $http.post("/delete", id).then(function (response){
+      callback(response.data.customer);
+    });
+  };
   return factory;
 
 }]);

@@ -17,18 +17,21 @@
               // console.log("in customerController - value passed in from hmtl page",newCustomer);
               customerFactory.createuser(newCustomer, function (createdCustomer)
               {
-                  $scope
                   console.log(createdCustomer);
                   //Reset Form
                   newCustomer.name = "";
               })
         };
-    // console.log("You have entered the front-end customerController");
-    // customerFactory.showcustomers(function (customers){
-    //   console.log("You have entered the showcustomers function");
-    //   $scope.customers = customers;
-    //   console.log($scope.customers);
-    // });
+      $scope.delete = function (customer)
+        {
+          console.log("You have entered the delete function");
+          console.log(customer);
+          customerFactory.delete(customer,function (deletedCustomer)
+          {
+            console.log(deletedCustomer);
+          })
+
+        };
 
 // app.controller("userController", ["$scope", "itemFactory", "$routeParams", function ($scope, itemFactory, $routeParams) {
 //   $scope.submitName = function (newUser)
